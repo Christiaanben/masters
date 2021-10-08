@@ -15,6 +15,7 @@ setup(
     install_requires=[
         'pandas==1.1.5',
         'torch==1.9.0',
+        'numpy==1.21.2'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -23,8 +24,8 @@ setup(
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',  # Specify which pyhton versions that you want to support
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
 )

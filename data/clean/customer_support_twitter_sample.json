@@ -1,0 +1,156 @@
+[
+    [
+        {
+            "text": "USERNAME @AppleSupport Me too am suffering , hope the can find a solution",
+            "authored": false,
+            "intent": "help"
+        },
+        {
+            "text": "USERNAME We can help. Which version of iOS are you on? You can find that in Settings > General > About. Reply in DM. URL",
+            "authored": true,
+            "intent": "utter_version+utter_dm"
+        }
+    ],
+    [
+        {
+            "text": "I just updated my phone and suddenly everything takes ages to load wtf USERNAME this update sux I hate it fix it bye",
+            "authored": false,
+            "intent": "update+help"
+        },
+        {
+            "text": "USERNAME Thanks for reaching out to us. We are always happy to help. Send us a DM so we can look into this together. URL",
+            "authored": true,
+            "intent": "utter_gratitude+utter_dm"
+        }
+    ],
+    [
+        {
+            "text": "@AppleSupport after the 11.0.2 my phone just sucks most of the apps are broken, wifi disconnects frequently #apple #ios1102 #painfulupdate",
+            "authored": false,
+            "intent": "update+help"
+        },
+        {
+            "text": "USERNAME We'd love to help! Please DM us and let us know any steps you've tried since experiencing these behaviors. URL",
+            "authored": true,
+            "intent": "utter_steps+utter_dm"
+        }
+    ],
+    [
+        {
+            "text": "Okay USERNAME I used my fucking phone for 2 minutes and it drains it down 8 fucking percent",
+            "authored": false,
+            "intent": "battery+help"
+        },
+        {
+            "text": "USERNAME Battery life is important, and we're here for you. DM us the iOS version your iPhone is running. We'll go from there. URL",
+            "authored": true,
+            "intent": "utter_battery+utter_version+utter_dm"
+        }
+    ],
+    [
+        {
+            "text": "You've paralysed my phone with your update USERNAME grrrrrrrrrr",
+            "authored": false,
+            "intent": "update+help"
+        },
+        {
+            "text": "USERNAME We'd be happy to help. Send us a DM and we can start there. URL",
+            "authored": true,
+            "intent": "utter_happy_help+utter_dm"
+        },
+        {
+            "text": "@AppleSupport Can you get my iPhone 7plus back on the old iOS please?  Battery runs out in half the time, apps now frequently crash.",
+            "authored": false,
+            "intent": "update+battery+help"
+        },
+        {
+            "text": "USERNAME Thanks for reaching out to us. We are always happy to help. Send us a DM so we can look into this together. URL",
+            "authored": true,
+            "intent": "utter_happy_help+utter_dm"
+        }
+    ],
+    [
+        {
+            "text": "So the new USERNAME update does not let me listen to music and go on whatsapp at the same time?!?",
+            "authored": false,
+            "intent": "update+help"
+        },
+        {
+            "text": "USERNAME We'd like to help. What happens when you try to listen to Apple Music & use WhatsApp? Does the music pause? Let us know in DM. URL",
+            "authored": true,
+            "intent": "utter_music+utter_music_pause+utter_app_usage+utter_dm"
+        }
+    ],
+    [
+        {
+            "text": "@AppleSupport Latest version  I have read the help page turned off virtually all apps and location svs too - but in typing this I dropped 3% life",
+            "authored": false,
+            "intent": "update+battery"
+        }
+    ],
+    [
+        {
+            "text": "@AppleSupport Super help - problem solved  once again in love with Apple",
+            "authored": false,
+            "intent": "solved+happy"
+        }
+    ],
+    [
+        {
+            "text": "Took my phone off charge at 7:20am.\n\n8:03am - 60% battery remaining.\n\nUSERNAME plz I beg you, sort your battery life out",
+            "authored": false,
+            "intent": "battery"
+        },
+        {
+            "text": "USERNAME Thanks for reaching out to us. We are always happy to help. Send us a DM so we can look into this together. URL",
+            "authored": true,
+            "intent": "utter_happy_help+utter_dm"
+        }
+    ],
+    [
+        {
+            "text": "@AppleSupport I need a new code for my I-store. I haven't recd any but msg is too many sent. Help!",
+            "authored": false,
+            "intent": "istore_code+help"
+        },
+        {
+            "text": "USERNAME We'd like to provide some assistance with this. Tell us more about the issue you're experiencing in DM. We'll go from there. URL",
+            "authored": true,
+            "intent": "utter_assistance+utter_dm"
+        }
+    ],
+    [
+        {
+            "text": "USERNAME @AppleSupport fix this update. It's horrible",
+            "authored": false,
+            "intent": "update"
+        },
+        {
+            "text": "USERNAME Are you experiencing an issue with your device? If so, DM us with what's going on. We'll see how we can help from there. URL",
+            "authored": true,
+            "intent": "utter_issues+utter_dm"
+        }
+    ],
+    [
+        {
+            "text": "My apps stop working without warning and my phone freezes every five minutes! Love the new update USERNAME!!!!",
+            "authored": false,
+            "intent": "phone_freeze+update"
+        },
+        {
+            "text": "USERNAME We'd like to help if we can. When did this start happening? Which version of iOS are you running currently?",
+            "authored": true,
+            "intent": "utter_start+utter_happy_help+utter_version"
+        },
+        {
+            "text": "@AppleSupport I have the latest version iOS. It started immediately after I updated my phone.",
+            "authored": false,
+            "intent": "update"
+        },
+        {
+            "text": "USERNAME Is there a particular app that seems to cause these issues more than others? What model iPhone are you using? Join us in DM. URL",
+            "authored": true,
+            "intent": "utter_app_usage+utter_dm+utter_model"
+        }
+    ]
+]
