@@ -14,8 +14,9 @@ setup(
     keywords=['pytorch', 'chatbot', 'machine learning'],
     install_requires=[
         'pandas==1.1.5',
-        'torch==1.9.0',
-        'numpy==1.21.2'
+        'torch==1.9.1+cu111',
+        'numpy==1.21.2',
+        'transformers==4.11.3'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',

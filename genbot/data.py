@@ -29,6 +29,10 @@ class Dataset(TorchDataset, ABC):
             label[self.intents.index(intent)] = 1
         return label
 
+    @property
+    def n_labels(self):
+        return len(self.intents)
+
     @abstractmethod
     def __getitem__(self, index):
         """Get item at index from the dataset."""

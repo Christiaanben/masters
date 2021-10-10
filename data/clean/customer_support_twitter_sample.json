@@ -20,7 +20,7 @@
         {
             "text": "USERNAME Thanks for reaching out to us. We are always happy to help. Send us a DM so we can look into this together. URL",
             "authored": true,
-            "intent": "utter_gratitude+utter_dm"
+            "intent": "utter_dm"
         }
     ],
     [
@@ -32,7 +32,7 @@
         {
             "text": "USERNAME We'd love to help! Please DM us and let us know any steps you've tried since experiencing these behaviors. URL",
             "authored": true,
-            "intent": "utter_steps+utter_dm"
+            "intent": "utter_dm"
         }
     ],
     [
@@ -78,7 +78,7 @@
         {
             "text": "USERNAME We'd like to help. What happens when you try to listen to Apple Music & use WhatsApp? Does the music pause? Let us know in DM. URL",
             "authored": true,
-            "intent": "utter_music+utter_music_pause+utter_app_usage+utter_dm"
+            "intent": "utter_app_usage+utter_dm"
         }
     ],
     [
@@ -92,7 +92,7 @@
         {
             "text": "@AppleSupport Super help - problem solved  once again in love with Apple",
             "authored": false,
-            "intent": "solved+happy"
+            "intent": "happy"
         }
     ],
     [
@@ -109,38 +109,14 @@
     ],
     [
         {
-            "text": "@AppleSupport I need a new code for my I-store. I haven't recd any but msg is too many sent. Help!",
-            "authored": false,
-            "intent": "istore_code+help"
-        },
-        {
-            "text": "USERNAME We'd like to provide some assistance with this. Tell us more about the issue you're experiencing in DM. We'll go from there. URL",
-            "authored": true,
-            "intent": "utter_assistance+utter_dm"
-        }
-    ],
-    [
-        {
-            "text": "USERNAME @AppleSupport fix this update. It's horrible",
+            "text": "My apps stop working without warning and my phone freezes every five minutes! Love the new update USERNAME!!!!",
             "authored": false,
             "intent": "update"
         },
         {
-            "text": "USERNAME Are you experiencing an issue with your device? If so, DM us with what's going on. We'll see how we can help from there. URL",
-            "authored": true,
-            "intent": "utter_issues+utter_dm"
-        }
-    ],
-    [
-        {
-            "text": "My apps stop working without warning and my phone freezes every five minutes! Love the new update USERNAME!!!!",
-            "authored": false,
-            "intent": "phone_freeze+update"
-        },
-        {
             "text": "USERNAME We'd like to help if we can. When did this start happening? Which version of iOS are you running currently?",
             "authored": true,
-            "intent": "utter_start+utter_happy_help+utter_version"
+            "intent": "utter_happy_help+utter_version"
         },
         {
             "text": "@AppleSupport I have the latest version iOS. It started immediately after I updated my phone.",
@@ -150,7 +126,7 @@
         {
             "text": "USERNAME Is there a particular app that seems to cause these issues more than others? What model iPhone are you using? Join us in DM. URL",
             "authored": true,
-            "intent": "utter_app_usage+utter_dm+utter_model"
+            "intent": "utter_app_usage+utter_dm"
         }
     ]
 ]
