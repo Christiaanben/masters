@@ -15,7 +15,7 @@ setup(
     install_requires=[
         'pandas~=1.3',
         'torch~=1.12',
-        'numpy~=1.23',
+        'numpy~=1.21',
         'transformers~=4.20'
     ],
     classifiers=[
