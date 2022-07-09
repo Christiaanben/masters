@@ -13,10 +13,10 @@ setup(
     download_url='https://github.com/user/reponame/archive/v_01.tar.gz',  # I explain this later on
     keywords=['pytorch', 'chatbot', 'machine learning'],
     install_requires=[
-        'pandas==1.1.5',
+        'pandas~=1.4',
         'torch~=1.12',
-        'numpy==1.21.2',
-        'transformers==4.11.3'
+        'nump~=1.23',
+        'transformers~=4.20'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
