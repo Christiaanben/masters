@@ -13,10 +13,10 @@ setup(
     download_url='https://github.com/user/reponame/archive/v_01.tar.gz',  # I explain this later on
     keywords=['pytorch', 'chatbot', 'machine learning'],
     install_requires=[
-        'pandas~=1.3',
-        'torch~=1.12',
         'numpy~=1.21',
-        'transformers~=4.20'
+        'pandas~=1.3',
+        'torch~=1.9',
+        'transformers~=4.11'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -25,8 +25,8 @@ setup(
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',  # Specify which pyhton versions that you want to support
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
 )

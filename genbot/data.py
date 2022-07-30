@@ -1,19 +1,18 @@
 import json
 from abc import ABC, abstractmethod
-from typing import List, Dict, Type
+from typing import List, Dict
 
 import numpy as np
 import torch
 from torch.nn import functional as F
 from torch.utils.data import Dataset as TorchDataset
-from torch.utils.data.dataset import T_co
 
 
 class Dataset(TorchDataset, ABC):
 
-    def __init__(self, conversations: List[List[Dict]]):
+    def __init__(self, conversations: List[List[Dict]], intents=None):
         self.conversations = conversations
-        self.intents = self.get_intents()
+        self.intents = intents or self.get_intents()
 
     def get_intents(self) -> List[str]:
         intents = set()
@@ -44,8 +43,8 @@ class Dataset(TorchDataset, ABC):
 
 class IntentClassificationDataset(Dataset):
 
-    def __init__(self, conversations: List[List[Dict]]):
-        super(IntentClassificationDataset, self).__init__(conversations)
+    def __init__(self, conversations: List[List[Dict]], intents=None):
+        super(IntentClassificationDataset, self).__init__(conversations, intents=intents)
         self.lengths = [len(conversation) for conversation in conversations]
         self.conversation_indices = np.cumsum([0] + self.lengths)
 

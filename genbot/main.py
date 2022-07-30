@@ -17,33 +17,29 @@ def main():
     with open(DATASET_FILENAME) as file:
         data = json.load(file)
     classifier_dataset = IntentClassificationDataset(data)
-    classifier_dataloader = DataLoader(classifier_dataset, batch_size=2)
-    classifier = IntentClassifier(classifier_dataset.n_labels).to('cuda')
-    classifier_criterion = BCEWithLogitsLoss()
-    classifier_optimizer = Adam(classifier.parameters(), lr=1e-05)
+    classifier = IntentClassifier(classifier_dataset.n_labels, optimizer_class=Adam, criterion_class=BCEWithLogitsLoss).to('cuda')
     classifier.train()
     for epoch in tqdm(range(N_EPOCHS)):
         print("Epoch", epoch)
         running_loss = 0.
-        for inputs, targets in classifier_dataloader:
+        for inputs, targets in DataLoader(classifier_dataset, batch_size=2):
             outputs = classifier(inputs)
             targets = targets.to('cuda')
-            loss = classifier_criterion(outputs, targets)
+            loss = classifier.criterion(outputs, targets)
             running_loss += loss
             loss.backward()
-            classifier_optimizer.step()
+            classifier.optimizer.step()
         print('running_loss:', running_loss/len(classifier_dataset))
 
     with open(TESTSET_FILENAME) as file:
         test = json.load(file)
-    classifier_testset = IntentClassificationDataset(test)
-    classifier_testloader = DataLoader(classifier_testset, batch_size=2)
+    classifier_testset = IntentClassificationDataset(test, classifier_dataset.intents)
     classifier.eval()
-    for inputs, targets in classifier_testloader:
+
+    for inputs, targets in DataLoader(classifier_testset, batch_size=2):
         outputs = classifier(inputs)
         targets = targets.to('cuda')
-
-        loss = classifier_criterion(outputs, targets)
+        loss = classifier.criterion(outputs, targets)
         print(loss)
 
 
