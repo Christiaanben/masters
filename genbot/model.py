@@ -22,6 +22,15 @@ class IntentClassifier(Module):
         return output
 
 
+class IntentPredictor(Module):
+
+    def __init__(self):
+        super(IntentPredictor, self).__init__()
+
+    def forward(self, inputs):
+        pass
+
+
 class ScoreThreshold:
 
     def __init__(self):
