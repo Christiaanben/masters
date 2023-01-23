@@ -2,7 +2,7 @@ from typing import List, Dict
 
 import numpy as np
 
-from .base import Dataset
+from .dataset import Dataset
 
 
 class IntentClassificationDataset(Dataset):
