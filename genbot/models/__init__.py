@@ -1,16 +1,7 @@
 from .intent_classifier import IntentClassifier
+from .intent_predictor import IntentPredictor
 import numpy as np
 import torch
-from torch.nn import Module
-
-
-class IntentPredictor(Module):
-
-    def __init__(self):
-        super(IntentPredictor, self).__init__()
-
-    def forward(self, inputs):
-        pass
 
 
 class ScoreThreshold:
