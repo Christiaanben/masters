@@ -5,18 +5,19 @@ setup(
     packages=['genbot'],  # Chose the same as "name"
     version='0.1',  # Start with a small number and increase it with every change you make
     license='MIT',  # Chose a license from here: https://help.github.com/articles/licensing-a-repository
-    description='A machine learning library for creating practical chatbots through semi-labelled data',
+    description='A machine learning library for creating practical chatbots through labelled conversation data',
     # Give a short description about your library
     author='Bennie',
-    author_email='christiaanben@gmail.com',
+    author_email='bennie.v.e@live.co.za',
     url='https://github.com/user/reponame',  # Provide either the link to your github or to your website
     download_url='https://github.com/user/reponame/archive/v_01.tar.gz',  # I explain this later on
-    keywords=['pytorch', 'chatbot', 'machine learning'],
+    keywords=['pytorch', 'chatbot', 'machine learning', 'gpt', 'transformers'],
+    # Keywords that define your package best
     install_requires=[
-        'numpy~=1.21',
-        'pandas~=1.3',
-        'torch~=1.9',
-        'transformers~=4.11'
+        'numpy~=1.24',
+        'pandas~=2.0',
+        'torch~=2.0',
+        'transformers~=4.28'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -24,7 +25,7 @@ setup(
         'Intended Audience :: Developers',  # Define that your audience are developers
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',  # Specify which pyhton versions that you want to support
+        'Programming Language :: Python :: 3',  # Specify which python versions that you want to support
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
