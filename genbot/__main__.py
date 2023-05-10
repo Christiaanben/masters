@@ -11,8 +11,8 @@ from genbot.data import GeneratorDataset
 from genbot.models.generator import Generator
 from models import IntentClassifier, IntentPredictor
 
-DATASET_FILENAME = './data/clean/customer_support_twitter_sample.json'
-TESTSET_FILENAME = './data/clean/customer_support_twitter_sample_test.json'
+DATASET_FILENAME = '../data/clean/customer_support_twitter_sample.json'
+TESTSET_FILENAME = '../data/clean/customer_support_twitter_sample_test.json'
 N_EPOCHS = 2
 DEVICE = 'cpu'
 
@@ -105,7 +105,9 @@ def evaluate_intent_predictor(predictor: IntentPredictor, dataset: IntentPredict
 
 
 def get_generator_dataset() -> GeneratorDataset:
-    return GeneratorDataset(tokenizer=Generator.init_tokenizer())
+    with open(DATASET_FILENAME) as file:
+        data = json.load(file)
+    return GeneratorDataset(data, tokenizer=Generator.init_tokenizer())
 
 
 def init_generator() -> Generator:
@@ -115,19 +117,30 @@ def init_generator() -> Generator:
 def train_generator(generator: Generator, dataset: GeneratorDataset) -> None:
     generator.train()
     try:
-        for epoch in tqdm(range(300)):
+        for epoch in tqdm(range(30)):
             logging.info(f"Epoch {epoch}")
             running_loss = 0.
-            for inputs, attention_mask in DataLoader(dataset, batch_size=2):
+            for inputs, attention_mask, labels in DataLoader(dataset, batch_size=2):
                 generator.optimizer.zero_grad()
-                inputs, attention_mask = inputs.to(DEVICE), attention_mask.to(DEVICE)
-                loss = generator(input_ids=inputs, attention_mask=attention_mask, labels=inputs).loss
+                inputs, attention_mask, labels = inputs.to(DEVICE), attention_mask.to(DEVICE), labels.to(DEVICE)
+                loss = generator(input_ids=inputs, attention_mask=attention_mask, labels=labels).loss
                 running_loss += loss.item()
                 loss.backward()
                 generator.optimizer.step()
             logging.info(f'running_loss: {running_loss / len(dataset)}')
     except KeyboardInterrupt:
         logging.info('Interrupted')
+
+
+def evaluate_generator(generator: Generator, dataset: GeneratorDataset) -> float:
+    generator.eval()
+    running_loss = 0.
+    for inputs, attention_mask, labels in DataLoader(dataset, batch_size=2):
+        inputs, attention_mask, labels = inputs.to(DEVICE), attention_mask.to(DEVICE), labels.to(DEVICE)
+        loss = generator(input_ids=inputs, attention_mask=attention_mask, labels=labels).loss
+        running_loss += loss.item()
+    return running_loss / len(dataset)
+
 
 def main():
     logging.info('Starting GenBot')
@@ -154,6 +167,14 @@ def main():
     # Setup, train, & evaluate generator
     generator = init_generator()
     train_generator(generator, generator_dataset)
+    loss = evaluate_generator(generator, generator_dataset)
+    logging.info(f'Evaluation loss: {loss}')
+
+    # Inference example
+    user_text = "Okay USERNAME I used my fucking phone for 2 minutes and it drains it down 8 fucking percent"
+    inputs = generator.tokenizer.encode(user_text + generator.tokenizer.eos_token, return_tensors='pt')
+    output_text = generator.tokenizer.decode(generator.model.generate(inputs, pad_token_id=generator.tokenizer.eos_token_id, max_new_tokens=50, do_sample=True)[0])
+    logging.info(f'Example: "{output_text}"')
 
     logging.info('Finished GenBot')
 
