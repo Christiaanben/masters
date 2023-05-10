@@ -1,22 +1,62 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
+from torch.optim import AdamW
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from torch import nn
 
-tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
-model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-medium")
+
+from genbot.data import GeneratorDataset
+
+
+class Generator(nn.Module):
+
+    pretrained_model = 'microsoft/DialoGPT-small'
+
+    def __init__(self, optimizer_class=AdamW):
+        super().__init__()
+        self.tokenizer = self.init_tokenizer()
+        self.model = AutoModelForCausalLM.from_pretrained(self.pretrained_model)
+        self.model.resize_token_embeddings(len(self.tokenizer))
+        self.optimizer = optimizer_class(self.parameters(), lr=1e-5)
+
+    @classmethod
+    def init_tokenizer(cls):
+        tokenizer = AutoTokenizer.from_pretrained(cls.pretrained_model)
+        tokenizer.pad_token = tokenizer.eos_token
+        return tokenizer
+
+    def forward(self, *args, **kwargs):
+        return self.model(*args, **kwargs)
+
+    def chat(self, n_steps=3):
+        # chat for n lines
+        for step in range(n_steps):
+            # encode the new user input, add the eos_token and return a tensor in Pytorch
+            user_text = input(">> User:")
+            new_user_input_ids = self.tokenizer.encode(user_text + self.tokenizer.eos_token, return_tensors='pt')
+            # append the new user input tokens to the chat history
+            bot_input_ids = torch.cat([chat_history_ids, new_user_input_ids],
+                                      dim=-1) if step > 0 else new_user_input_ids
+            # generated a response while limiting the total chat history to 1000 tokens,
+            chat_history_ids = self.model.generate(
+                bot_input_ids,
+                max_new_tokens=50,
+                pad_token_id=self.tokenizer.eos_token_id
+            )
+            # pretty print last ouput tokens from bot
+            print("DialoGPT: {}".format(
+                    self.tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)))
+
 
 if __name__ == '__main__':
     print('Starting main')
-    # Let's chat for 5 lines
-    for step in range(5):
-        # encode the new user input, add the eos_token and return a tensor in Pytorch
-        new_user_input_ids = tokenizer.encode(input(">> User:") + tokenizer.eos_token, return_tensors='pt')
+    generator = Generator()
+    dataset = GeneratorDataset(generator.tokenizer)
 
-        # append the new user input tokens to the chat history
-        bot_input_ids = torch.cat([chat_history_ids, new_user_input_ids], dim=-1) if step > 0 else new_user_input_ids
+    tokenizer = generator.tokenizer
+    model = generator.model
 
-        # generated a response while limiting the total chat history to 1000 tokens,
-        chat_history_ids = model.generate(bot_input_ids, max_length=1000, pad_token_id=tokenizer.eos_token_id, temperature=0.6, repetition_penalty=1.3)
+    outputs = model(input_ids=dataset[0][0], attention_mask=dataset[0][1], labels=dataset[0][0])
+    outputs.loss.backward()
+    generator.optimizer.step()
 
-        # pretty print last ouput tokens from bot
-        print("DialoGPT: {}".format(
-            tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)))
+    print('Finished main')

@@ -7,12 +7,14 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from data import IntentClassificationDataset, IntentPredictionDataset
+from genbot.data import GeneratorDataset
+from genbot.models.generator import Generator
 from models import IntentClassifier, IntentPredictor
 
 DATASET_FILENAME = './data/clean/customer_support_twitter_sample.json'
 TESTSET_FILENAME = './data/clean/customer_support_twitter_sample_test.json'
 N_EPOCHS = 2
-DEVICE = 'cuda'
+DEVICE = 'cpu'
 
 logging.basicConfig(level=logging.INFO, format='[{levelname}] {message}', style='{')
 
@@ -102,6 +104,31 @@ def evaluate_intent_predictor(predictor: IntentPredictor, dataset: IntentPredict
     return sum(losses) / len(losses)
 
 
+def get_generator_dataset() -> GeneratorDataset:
+    return GeneratorDataset(tokenizer=Generator.init_tokenizer())
+
+
+def init_generator() -> Generator:
+    return Generator().to(DEVICE)
+
+
+def train_generator(generator: Generator, dataset: GeneratorDataset) -> None:
+    generator.train()
+    try:
+        for epoch in tqdm(range(300)):
+            logging.info(f"Epoch {epoch}")
+            running_loss = 0.
+            for inputs, attention_mask in DataLoader(dataset, batch_size=2):
+                generator.optimizer.zero_grad()
+                inputs, attention_mask = inputs.to(DEVICE), attention_mask.to(DEVICE)
+                loss = generator(input_ids=inputs, attention_mask=attention_mask, labels=inputs).loss
+                running_loss += loss.item()
+                loss.backward()
+                generator.optimizer.step()
+            logging.info(f'running_loss: {running_loss / len(dataset)}')
+    except KeyboardInterrupt:
+        logging.info('Interrupted')
+
 def main():
     logging.info('Starting GenBot')
     # # Setup classifier datasets
@@ -122,7 +149,13 @@ def main():
     # loss = evaluate_intent_predictor(predictor, predictor_testset)
     # logging.info(f'Evaluation loss: {loss}')
 
+    # Setup generator datasets
+    generator_dataset = get_generator_dataset()
+    # Setup, train, & evaluate generator
+    generator = init_generator()
+    train_generator(generator, generator_dataset)
 
+    logging.info('Finished GenBot')
 
 
 if __name__ == "__main__":
