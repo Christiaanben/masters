@@ -4,9 +4,6 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from torch import nn
 
 
-from genbot.data import GeneratorDataset
-
-
 class Generator(nn.Module):
 
     pretrained_model = 'microsoft/DialoGPT-small'
@@ -45,18 +42,3 @@ class Generator(nn.Module):
             # pretty print last ouput tokens from bot
             print("DialoGPT: {}".format(
                     self.tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)))
-
-
-if __name__ == '__main__':
-    print('Starting main')
-    generator = Generator()
-    dataset = GeneratorDataset(generator.tokenizer)
-
-    tokenizer = generator.tokenizer
-    model = generator.model
-
-    outputs = model(input_ids=dataset[0][0], attention_mask=dataset[0][1], labels=dataset[0][0])
-    outputs.loss.backward()
-    generator.optimizer.step()
-
-    print('Finished main')

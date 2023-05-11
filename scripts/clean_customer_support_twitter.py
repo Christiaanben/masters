@@ -1,138 +1,113 @@
 import json
+import logging
 import re
-from typing import List, Dict
+from typing import List, Dict, Optional, Set
 
+import click
+import inquirer
 import pandas as pd
-from npyscreen import NPSApp, TitleMultiSelect, Form, TitleText, NPSAppManaged
 
 CORPUS_FILE = '../data/raw/customer_support_twitter_sample.csv'
 OUTPUT_FILE = '../data/clean/customer_support_twitter_sample.json'
 TARGET_COMPANY = 'AppleSupport'
 
 
-def load_dataframe(corpus_file_name) -> pd.DataFrame:
-    return pd.read_csv(CORPUS_FILE)
+def _load_dataframe(file_path) -> pd.DataFrame:
+    logging.debug(f'Loading dataframe from {file_path}...')
+    df = pd.read_csv(file_path)
+    logging.debug(f"Loaded dataframe with shape {df.shape}")
+    return df
 
 
-def get_company_tweets_dataframe(dataframe, target_company) -> pd.DataFrame:
-    return dataframe[dataframe['author_id'] == target_company]
+def _load_conversations(file_path) -> List[List[Dict]]:
+    logging.debug(f'Loading conversations from {file_path}...')
+    with open(file_path, 'r') as f:
+        conversations = json.load(f)
+    logging.debug(f"Loaded {len(conversations)} conversations")
+    return conversations
 
 
-def get_related_tweets_dataframe(dataframe, company_tweets_dataframe) -> pd.DataFrame:
+def _get_company_tweets(df: pd.DataFrame, target_company: str) -> pd.DataFrame:
+    company_tweets_df = df[df['author_id'] == target_company]
+    logging.debug(f"Found {len(company_tweets_df)} tweets from {target_company}")
+    return company_tweets_df
+
+
+def _get_related_tweets(df: pd.DataFrame, company_tweets_df: pd.DataFrame) -> pd.DataFrame:
     ids = set()
-    for tweet_id, _, _, _, _, response_tweet_id, in_response_to_tweet_id in company_tweets_dataframe.values:
-        ids.add(str(tweet_id))  # Add company tweet
-        ids.add(str(int(in_response_to_tweet_id)))  # Add parent tweet
+    for tweet_id, _, _, _, _, response_tweet_id, in_response_to_tweet_id in company_tweets_df.values:
+        ids.add(tweet_id)  # Add company tweet
+        ids.add(int(in_response_to_tweet_id))  # Add parent tweet
         if type(response_tweet_id) == str:  # Add all direct children tweets
             for response_id in response_tweet_id.split(','):
                 ids.add(response_id)
-    return dataframe[dataframe['tweet_id'].isin(ids)]
+    return df[df['tweet_id'].isin(ids)]
 
 
-def get_first_tweets_dataframe(dataframe) -> pd.DataFrame:
-    return dataframe[dataframe['in_response_to_tweet_id'].isnull()]
+def _get_last_tweets(df: pd.DataFrame) -> pd.DataFrame:
+    return df[df['response_tweet_id'].isnull()]
 
 
-def get_last_tweets_dataframe(dataframe) -> pd.DataFrame:
-    return dataframe[dataframe['response_tweet_id'].isnull()]
-
-
-def get_previous_tweet(dataframe, tweet):
-    try:
-        return dataframe[dataframe['response_tweet_id'] == str(tweet[0])].iloc[0]
-    except IndexError:
-        pass
-    return None
-
-
-def to_dict(tweet):
+def _to_dict(tweet):
     return {
+        'id': int(tweet.tweet_id),
         'text': tweet.text,
         'authored': not tweet.inbound,
-        'intent': None
+        'intents': []
     }
 
 
-class IntentTypeForm(Form):
-    DEFAULT_LINES = 17
-
-    def create(self):
-        tweet = self.parentApp.tweet
-        self.author = self.add(TitleText, name='Author', editable=False,
-                               value=str(tweet.get('authored')))
-        self.text = self.add(TitleText, name='Text', editable=False, value=tweet.get('text'))
-        self.intent = self.add(TitleText, name='Intent')
-
-    def beforeEditing(self):
-        tweet = self.parentApp.tweet
-        self.text.set_value(tweet.get('text'))
-        self.intent.set_value("")
-
-    def afterEditing(self):
-        if self.intent:
-            self.parentApp.intents.add(self.intent.value)
-            self.parentApp.setNextForm('select')
+def _get_previous_tweet(df: pd.DataFrame, tweet: pd.Series) -> Optional[pd.Series]:
+    try:
+        return df[df['response_tweet_id'] == str(tweet[0])].iloc[0]
+    except IndexError:
+        return None
 
 
-class IntentSelectForm(Form):
-    DEFAULT_LINES = 17
-
-    def create(self):
-        tweet = self.parentApp.tweet
-        self.help_text = self.add(TitleText, name='Help', editable=False,
-                                  value='Select one or more of the intents listed. If the intent is not there, select none and you can enter 1 manually',
-                                  w_id='help_text')
-        self.author = self.add(TitleText, name='Author', editable=False,
-                               value='Company' if tweet.get('authored') else 'User')
-        self.text = self.add(TitleText, name='Text', editable=False, value=tweet.get('text'), w_id='text')
-        intents = list(self.parentApp.intents)
-        self.intent_selection = self.add(TitleMultiSelect, value=[], name="Select intent(s)", values=intents,
-                                         scroll_exit=True)
-
-    def beforeEditing(self):
-        tweet = self.parentApp.tweet
-        self.text.set_value(tweet.get('text'))
-        intents = list(self.parentApp.intents)
-        intents.sort()
-        self.intent_selection.set_values(intents)
-        self.intent_selection.set_value(list())
-
-    def afterEditing(self):
-        selected_intents = self.intent_selection.get_selected_objects()
-        if selected_intents:
-            self.parentApp.setNextForm('select')
-            self.parentApp.tweet['intent'] = '+'.join(selected_intents)
-        else:
-            self.parentApp.setNextForm('create')
+def _get_conversations(dataframe: pd.DataFrame, target_company: str) -> List[List[Dict]]:
+    logging.debug('Extracting conversations...')
+    company_tweets_df = _get_company_tweets(dataframe, target_company)
+    related_tweets_df = _get_related_tweets(dataframe, company_tweets_df)
+    last_tweets_df = _get_last_tweets(related_tweets_df)
+    conversations = []
+    for _, last_tweet in last_tweets_df.iterrows():
+        conversation = [_to_dict(last_tweet)]
+        previous_tweet = _get_previous_tweet(related_tweets_df, last_tweet)
+        while previous_tweet is not None:
+            conversation = [_to_dict(previous_tweet)] + conversation
+            previous_tweet = _get_previous_tweet(related_tweets_df, previous_tweet)
+        conversations.append(conversation)
+    logging.debug(f"Extracted {len(conversations)} conversations")
+    return conversations
 
 
-class IntentApp(NPSAppManaged):
-    STARTING_FORM = "select"
+def _get_all_intents(conversations: List[List[Dict]]) -> Set[str]:
+    intents = set()
+    for conversation in conversations:
+        for message in conversation:
+            for intent in message['intents']:
+                intents.add(intent)
+    return intents
 
-    def __init__(self, conversations: list):
-        self.conversations = conversations
-        self.tweet_generator = self.next_tweet()
-        self.tweet = next(self.tweet_generator)
-        self.intents = set()
-        super().__init__()
 
-    def onStart(self):
-        self.addForm('select', IntentSelectForm, name='Intent Select Form')
-        self.addForm('create', IntentTypeForm, name='Intent Create Form')
-
-    def onInMainLoop(self):
-        print(self.getForm('select').text.value)
-        print(self.tweet, type(self.tweet))
-        if self.NEXT_ACTIVE_FORM == 'select' and self.tweet.get('intent'):
-            self.tweet = next(self.tweet_generator)
-            if not self.tweet:
-                self.setNextForm(None)
-
-    def next_tweet(self):
-        for conversation in self.conversations:
-            for tweet in conversation:
-                yield tweet
-        yield None
+def _ask_intents(message: Dict, all_intents: Set[str]) -> List[str]:
+    other = 'Add intent'
+    choices = list(all_intents) + [other]
+    print(message['text'])
+    question = f'Select intents for message:'
+    questions = [inquirer.Checkbox('intents', message=question, choices=choices, validate=lambda _, x: x != [])]
+    answers = inquirer.prompt(questions)
+    if not answers:
+        raise KeyboardInterrupt
+    if other in answers['intents']:
+        questions = [inquirer.Text(
+            'new_intent',
+            message='Which intent would you like to add?',
+            validate=lambda _, x: x != '')]
+        answers = inquirer.prompt(questions)
+        all_intents.add(answers['new_intent'])
+        return _ask_intents(message, all_intents)
+    return answers['intents']
 
 
 def replace_urls(conversations: List[List[Dict]]):
@@ -151,7 +126,7 @@ def replace_usernames(conversations: List[List[Dict]]):
 
 def replace_unicode(conversations: List[List[Dict]]):
     unicode_replacements = {
-        '\u2019': '\''
+        '\u2019': "'"
     }
     for conversation in conversations:
         for tweet in conversation:
@@ -171,34 +146,54 @@ def replace_html(conversations: List[List[Dict]]):
         for tweet in conversation:
             tweet['text'] = unescape(tweet.get('text'))
 
+def _assign_labels(conversations: List[List[Dict]]) -> List[List[Dict]]:
+    all_intents = _get_all_intents(conversations)
+    try:
+        for conversation in conversations:
+            for message in conversation:
+                if not message['intents']:
+                    intents = _ask_intents(message, all_intents)
+                    message['intents'] = intents
+                    all_intents.update(intents)
+    except KeyboardInterrupt:
+        logging.warning('Interrupted by user. Saving progress...')
+    return conversations
+
+
+def _save_conversations(conversations: List[List[Dict]], output_file: str):
+    logging.debug(f'Saving conversations to {output_file}...')
+    with open(output_file, 'w') as f:
+        json.dump(conversations, f, indent=2)
+    logging.debug('Saved conversations')
+
+@click.command()
+@click.option('--corpus-file', default=CORPUS_FILE, help='Path to corpus file.', type=click.Path(exists=True))
+@click.option('--output-file', default=OUTPUT_FILE, help='Path to output file.', type=click.Path())
+@click.option('--target_company', default=TARGET_COMPANY, help='Target company to extract tweets from.')
+@click.option('--continue/--no-continue', 'continue_', default=True, help='Continue from last saved progress.')
+def main(corpus_file, output_file, target_company, continue_):
+    logging.info("Starting cleaning process...")
+    if continue_:
+        conversations = _load_conversations(output_file)
+    else:
+        df = _load_dataframe(corpus_file)
+        conversations = _get_conversations(df, target_company)
+    replace_urls(conversations)
+    replace_usernames(conversations)
+    replace_unicode(conversations)
+    replace_html(conversations)
+    conversations = _assign_labels(conversations)
+    _save_conversations(conversations, output_file)
+
+
+def setup_logging():
+    logging.basicConfig(level=logging.DEBUG, format='[{levelname}] {message}', style='{')
+
 
 if __name__ == '__main__':
-    # df = load_dataframe(CORPUS_FILE)
-    # company_tweets_df = get_company_tweets_dataframe(df, TARGET_COMPANY)
-    # related_tweets_df = get_related_tweets_dataframe(df, company_tweets_df)
-    # last_tweets_df = get_last_tweets_dataframe(related_tweets_df)
-    # data = []
-    # for _, last_tweet in last_tweets_df.iterrows():
-    #     conversation = [to_dict(last_tweet)]
-    #     previous_tweet = get_previous_tweet(df, last_tweet)
-    #     while previous_tweet is not None:
-    #         conversation.append(to_dict(previous_tweet))
-    #         previous_tweet = get_previous_tweet(df, previous_tweet)
-    #     conversation.reverse()
-    #     data.append(conversation)
-    #
-    # app = IntentApp(data)
-    # app.run()
-    #
-    #
-    data = json.load(open(OUTPUT_FILE, 'r'))
+    setup_logging()
+    main()
 
-    replace_urls(data)
-    replace_usernames(data)
-    replace_unicode(data)
-    replace_html(data)
 
-    json.dump(data, open(OUTPUT_FILE, 'w'), indent=4)
 
-    for c in data:
-        print(c)
+
