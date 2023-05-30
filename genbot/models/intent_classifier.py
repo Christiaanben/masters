@@ -11,10 +11,15 @@ class IntentClassifier(nn.Module):
         self.linear = nn.Linear(768, n_labels)
         self.criterion = criterion_class()
         self.optimizer = optimizer_class(self.parameters(), lr=1e-5)
+        self.device = 'cpu'
 
     def forward(self, inputs):
-        tokens = self.tokenizer(inputs, return_tensors="pt", padding=True).to('cuda')
+        tokens = self.tokenizer(inputs, return_tensors="pt", padding=True).to(self.device)
         pretrained_output = self.model(**tokens)
         hidden_state = pretrained_output[0][:, 0]
         output = self.linear(hidden_state)
         return output
+
+    def to(self, device):
+        self.device = device
+        return super().to(device)

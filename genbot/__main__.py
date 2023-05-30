@@ -11,8 +11,8 @@ from genbot.data import GeneratorDataset
 from genbot.models.generator import Generator
 from models import IntentClassifier, IntentPredictor
 
-DATASET_FILENAME = '../data/clean/customer_support_twitter_sample.json'
-TESTSET_FILENAME = '../data/clean/customer_support_twitter_sample_test.json'
+DATASET_FILENAME = '../data/clean/customer_support_twitter_full.json'
+TESTSET_FILENAME = '../data/clean/customer_support_twitter_full_test.json'
 N_EPOCHS = 2
 DEVICE = 'cpu'
 
@@ -144,14 +144,14 @@ def evaluate_generator(generator: Generator, dataset: GeneratorDataset) -> float
 
 def main():
     logging.info('Starting GenBot')
-    # # Setup classifier datasets
-    # classifier_dataset = get_classifier_dataset()
-    # classifier_testset = get_classifier_testset(classifier_dataset.intents)
-    # # Setup, train, & evaluate classifier
-    # classifier = init_classifier(classifier_dataset)
-    # train_intent_classifier(classifier, classifier_dataset)
-    # loss = evaluate_intent_classifier(classifier, classifier_testset)
-    # logging.info(f'Evaluation loss: {loss}')
+    # Setup classifier datasets
+    classifier_dataset = get_classifier_dataset()
+    classifier_testset = get_classifier_testset(classifier_dataset.intents)
+    # Setup, train, & evaluate classifier
+    classifier = init_classifier(classifier_dataset)
+    train_intent_classifier(classifier, classifier_dataset)
+    loss = evaluate_intent_classifier(classifier, classifier_testset)
+    logging.info(f'Evaluation loss: {loss}')
 
     # # Setup intent predictor datasets
     # predictor_dataset = get_predictor_dataset()
@@ -162,19 +162,19 @@ def main():
     # loss = evaluate_intent_predictor(predictor, predictor_testset)
     # logging.info(f'Evaluation loss: {loss}')
 
-    # Setup generator datasets
-    generator_dataset = get_generator_dataset()
-    # Setup, train, & evaluate generator
-    generator = init_generator()
-    train_generator(generator, generator_dataset)
-    loss = evaluate_generator(generator, generator_dataset)
-    logging.info(f'Evaluation loss: {loss}')
-
-    # Inference example
-    user_text = "Okay USERNAME I used my fucking phone for 2 minutes and it drains it down 8 fucking percent"
-    inputs = generator.tokenizer.encode(user_text + generator.tokenizer.eos_token, return_tensors='pt')
-    output_text = generator.tokenizer.decode(generator.model.generate(inputs, pad_token_id=generator.tokenizer.eos_token_id, max_new_tokens=50, do_sample=True)[0])
-    logging.info(f'Example: "{output_text}"')
+    # # Setup generator datasets
+    # generator_dataset = get_generator_dataset()
+    # # Setup, train, & evaluate generator
+    # generator = init_generator()
+    # train_generator(generator, generator_dataset)
+    # loss = evaluate_generator(generator, generator_dataset)
+    # logging.info(f'Evaluation loss: {loss}')
+    #
+    # # Inference example
+    # user_text = "Okay USERNAME I used my fucking phone for 2 minutes and it drains it down 8 fucking percent"
+    # inputs = generator.tokenizer.encode(user_text + generator.tokenizer.eos_token, return_tensors='pt')
+    # output_text = generator.tokenizer.decode(generator.model.generate(inputs, pad_token_id=generator.tokenizer.eos_token_id, max_new_tokens=50, do_sample=True)[0])
+    # logging.info(f'Example: "{output_text}"')
 
     logging.info('Finished GenBot')
 

@@ -15,13 +15,13 @@ class Dataset(TorchDataset, ABC):
         intents = set()
         for conversation in self.conversations:
             for tweet in conversation:
-                for intent in tweet.get('intent').split('+'):
+                for intent in tweet.get('intents'):
                     intents.add(intent)
         return list(intents)
 
     def get_label(self, intents):
         label = torch.zeros(len(self.intents))
-        for intent in intents.split('+'):
+        for intent in intents:
             label[self.intents.index(intent)] = 1
         return label
 

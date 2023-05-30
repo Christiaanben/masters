@@ -22,7 +22,7 @@ class IntentClassificationDataset(Dataset):
         conversation_index = self._determine_conversation_index(index)
         text_index = index - self.conversation_indices[conversation_index]
         tweet = self.conversations[conversation_index][text_index]
-        return tweet.get('text'), self.get_label(tweet.get('intent'))
+        return tweet.get('text'), self.get_label(tweet.get('intents'))
 
     def __len__(self) -> int:
         return sum(self.lengths)

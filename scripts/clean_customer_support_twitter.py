@@ -6,10 +6,13 @@ from typing import List, Dict, Optional, Set
 import click
 import inquirer
 import pandas as pd
+from tqdm.auto import tqdm
 
-CORPUS_FILE = '../data/raw/customer_support_twitter_sample.csv'
-OUTPUT_FILE = '../data/clean/customer_support_twitter_sample.json'
+CORPUS_FILE = '../data/raw/customer_support_twitter_full.csv'
+OUTPUT_FILE = '../data/clean/customer_support_twitter_full.json'
 TARGET_COMPANY = 'AppleSupport'
+N_CONVERSATIONS = 100
+UTTER = 'utter_'
 
 
 def _load_dataframe(file_path) -> pd.DataFrame:
@@ -23,8 +26,8 @@ def _load_conversations(file_path) -> List[List[Dict]]:
     logging.debug(f'Loading conversations from {file_path}...')
     with open(file_path, 'r') as f:
         conversations = json.load(f)
-    logging.debug(f"Loaded {len(conversations)} conversations")
-    return conversations
+        logging.debug(f"Loaded {len(conversations)} conversations")
+        return conversations
 
 
 def _get_company_tweets(df: pd.DataFrame, target_company: str) -> pd.DataFrame:
@@ -36,11 +39,19 @@ def _get_company_tweets(df: pd.DataFrame, target_company: str) -> pd.DataFrame:
 def _get_related_tweets(df: pd.DataFrame, company_tweets_df: pd.DataFrame) -> pd.DataFrame:
     ids = set()
     for tweet_id, _, _, _, _, response_tweet_id, in_response_to_tweet_id in company_tweets_df.values:
-        ids.add(tweet_id)  # Add company tweet
-        ids.add(int(in_response_to_tweet_id))  # Add parent tweet
-        if type(response_tweet_id) == str:  # Add all direct children tweets
-            for response_id in response_tweet_id.split(','):
-                ids.add(response_id)
+        try:
+            ids.add(tweet_id)  # Add company tweet
+            if float.is_integer(in_response_to_tweet_id):
+                ids.add(int(in_response_to_tweet_id))  # Add parent tweet
+            if type(response_tweet_id) == str:  # Add all direct children tweets
+                response_tweet_ids = response_tweet_id.split(',')
+                for response_id in response_tweet_id.split(','):
+                    ids.add(response_id)
+        except ValueError as ex:
+            logging.error(f"Could not parse tweet id {tweet_id}")
+            logging.debug(
+                f'Tweet ID: {tweet_id}, in_response_to_tweet_id: {in_response_to_tweet_id}, response_tweet_id: {response_tweet_id}')
+            raise ex
     return df[df['tweet_id'].isin(ids)]
 
 
@@ -70,13 +81,15 @@ def _get_conversations(dataframe: pd.DataFrame, target_company: str) -> List[Lis
     related_tweets_df = _get_related_tweets(dataframe, company_tweets_df)
     last_tweets_df = _get_last_tweets(related_tweets_df)
     conversations = []
-    for _, last_tweet in last_tweets_df.iterrows():
+    for _, last_tweet in tqdm(last_tweets_df.iterrows(), total=len(last_tweets_df)):
         conversation = [_to_dict(last_tweet)]
         previous_tweet = _get_previous_tweet(related_tweets_df, last_tweet)
         while previous_tweet is not None:
             conversation = [_to_dict(previous_tweet)] + conversation
             previous_tweet = _get_previous_tweet(related_tweets_df, previous_tweet)
         conversations.append(conversation)
+        if N_CONVERSATIONS and len(conversations) > N_CONVERSATIONS:
+            break
     logging.debug(f"Extracted {len(conversations)} conversations")
     return conversations
 
@@ -92,7 +105,12 @@ def _get_all_intents(conversations: List[List[Dict]]) -> Set[str]:
 
 def _ask_intents(message: Dict, all_intents: Set[str]) -> List[str]:
     other = 'Add intent'
-    choices = list(all_intents) + [other]
+    is_authored = message['authored']
+    if is_authored:
+        intents = [intent for intent in all_intents if intent.startswith(UTTER)]
+    else:
+        intents = [intent for intent in all_intents if not intent.startswith(UTTER)]
+    choices = list(intents) + [other]
     print(message['text'])
     question = f'Select intents for message:'
     questions = [inquirer.Checkbox('intents', message=question, choices=choices, validate=lambda _, x: x != [])]
@@ -146,6 +164,7 @@ def replace_html(conversations: List[List[Dict]]):
         for tweet in conversation:
             tweet['text'] = unescape(tweet.get('text'))
 
+
 def _assign_labels(conversations: List[List[Dict]]) -> List[List[Dict]]:
     all_intents = _get_all_intents(conversations)
     try:
@@ -165,6 +184,7 @@ def _save_conversations(conversations: List[List[Dict]], output_file: str):
     with open(output_file, 'w') as f:
         json.dump(conversations, f, indent=2)
     logging.debug('Saved conversations')
+
 
 @click.command()
 @click.option('--corpus-file', default=CORPUS_FILE, help='Path to corpus file.', type=click.Path(exists=True))
@@ -193,7 +213,3 @@ def setup_logging():
 if __name__ == '__main__':
     setup_logging()
     main()
-
-
-
-
