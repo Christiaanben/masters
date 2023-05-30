@@ -14,7 +14,7 @@ from models import IntentClassifier, IntentPredictor
 DATASET_FILENAME = '../data/clean/customer_support_twitter_full.json'
 TESTSET_FILENAME = '../data/clean/customer_support_twitter_full_test.json'
 N_EPOCHS = 2
-DEVICE = 'cpu'
+DEVICE = 'cuda'
 
 logging.basicConfig(level=logging.INFO, format='[{levelname}] {message}', style='{')
 
