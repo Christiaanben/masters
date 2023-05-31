@@ -1,13 +1,13 @@
 import json
 import logging
 
+import torch
 from torch.nn import BCEWithLogitsLoss
 from torch.optim.adam import Adam
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from data import IntentClassificationDataset, IntentPredictionDataset
-from genbot.data import GeneratorDataset
+from genbot.data import GeneratorDataset, IntentClassificationDataset, IntentPredictionDataset
 from genbot.models.generator import Generator
 from models import IntentClassifier, IntentPredictor
 
@@ -19,10 +19,10 @@ DEVICE = 'cuda'
 logging.basicConfig(level=logging.INFO, format='[{levelname}] {message}', style='{')
 
 
-def get_classifier_dataset() -> IntentClassificationDataset:
+def get_classifier_dataset(tokenizer) -> IntentClassificationDataset:
     with open(DATASET_FILENAME) as file:
         data = json.load(file)
-    return IntentClassificationDataset(data)
+    return IntentClassificationDataset(data, tokenizer=tokenizer)
 
 
 def init_classifier(dataset: IntentClassificationDataset) -> IntentClassifier:
@@ -30,34 +30,37 @@ def init_classifier(dataset: IntentClassificationDataset) -> IntentClassifier:
                             criterion_class=BCEWithLogitsLoss).to(DEVICE)
 
 
-def train_intent_classifier(classifier: IntentClassifier, dataset: IntentClassificationDataset) -> None:
+def train_intent_classifier(classifier: IntentClassifier, dataset: IntentClassificationDataset,
+                            n_epochs: int = N_EPOCHS) -> None:
     classifier.train()
-    for epoch in tqdm(range(N_EPOCHS)):
+    for epoch in tqdm(range(n_epochs)):
         logging.info(f"Epoch {epoch}")
         running_loss = 0.
-        for inputs, targets in DataLoader(dataset, batch_size=2):
-            outputs = classifier(inputs)
-            targets = targets.to(DEVICE)
-            loss = classifier.criterion(outputs, targets)
+        for batch in DataLoader(dataset, batch_size=2, shuffle=True):
+            torch.cuda.empty_cache()
+            batch = {k: v.to(DEVICE) for k, v in batch.items()}
+            outputs = classifier(batch)
+            loss = outputs.loss
             running_loss += loss
             loss.backward()
             classifier.optimizer.step()
+            classifier.optimizer.zero_grad()
         logging.info(f'running_loss: {running_loss / len(dataset)}')
 
 
-def get_classifier_testset(intents) -> IntentClassificationDataset:
+def get_classifier_testset(intents, tokenizer) -> IntentClassificationDataset:
     with open(TESTSET_FILENAME) as file:
         test = json.load(file)
-    return IntentClassificationDataset(test, intents)
+    return IntentClassificationDataset(test, intents, tokenizer=tokenizer)
 
 
 def evaluate_intent_classifier(classifier, dataset: IntentClassificationDataset):
     classifier.eval()
     losses = []
-    for inputs, targets in DataLoader(dataset, batch_size=2):
-        outputs = classifier(inputs)
-        targets = targets.to('cuda')
-        loss = classifier.criterion(outputs, targets)
+    for batch in DataLoader(dataset, batch_size=2):
+        batch = {k: v.to(DEVICE) for k, v in batch.items()}
+        outputs = classifier(batch)
+        loss = outputs.loss
         losses.append(loss.item())
     return sum(losses) / len(losses)
 
@@ -145,13 +148,15 @@ def evaluate_generator(generator: Generator, dataset: GeneratorDataset) -> float
 def main():
     logging.info('Starting GenBot')
     # Setup classifier datasets
-    classifier_dataset = get_classifier_dataset()
-    classifier_testset = get_classifier_testset(classifier_dataset.intents)
+    classifier_tokenizer = IntentClassifier.init_tokenizer()
+    classifier_dataset = get_classifier_dataset(classifier_tokenizer)
+    classifier_testset = get_classifier_testset(classifier_dataset.intents, classifier_tokenizer)
     # Setup, train, & evaluate classifier
     classifier = init_classifier(classifier_dataset)
-    train_intent_classifier(classifier, classifier_dataset)
+    train_intent_classifier(classifier, classifier_dataset, n_epochs=3)
     loss = evaluate_intent_classifier(classifier, classifier_testset)
     logging.info(f'Evaluation loss: {loss}')
+    # Eval: classifier_dataset.intents[torch.argmax(classifier.forward(classifier_tokenizer(text, return_tensors='pt')))]
 
     # # Setup intent predictor datasets
     # predictor_dataset = get_predictor_dataset()
