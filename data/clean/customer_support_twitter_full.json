@@ -607,25 +607,36 @@
       "id": 1791,
       "text": "why won't my apps fuccin download or update @AppleSupport",
       "authored": false,
-      "intents": []
+      "intents": [
+        "app_store",
+        "help"
+      ]
     },
     {
       "id": 1790,
       "text": "USERNAME Apps are important and we want you to get back to enjoying them. Which model do you have? Is iOS 11.1 installed on it?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_model",
+        "utter_version"
+      ]
     },
     {
       "id": 1789,
       "text": "@AppleSupport No I had 11.0.3 but now it says 11.1 update so ima go ahead and do that",
       "authored": false,
-      "intents": []
+      "intents": [
+        "update",
+        "version"
+      ]
     },
     {
       "id": 1788,
       "text": "USERNAME Please keep us posted afterwards.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_feedback"
+      ]
     },
     {
       "id": 1787,
