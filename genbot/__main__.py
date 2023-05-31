@@ -6,6 +6,7 @@ from torch.nn import BCEWithLogitsLoss
 from torch.optim.adam import Adam
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+from transformers import DistilBertTokenizerFast
 
 from genbot.data import GeneratorDataset, IntentClassificationDataset, IntentPredictionDataset
 from genbot.models.generator import Generator
@@ -138,7 +139,7 @@ def train_generator(generator: Generator, dataset: GeneratorDataset) -> None:
 def evaluate_generator(generator: Generator, dataset: GeneratorDataset) -> float:
     generator.eval()
     running_loss = 0.
-    for inputs, attention_mask, labels in DataLoader(dataset, batch_size=2):
+    for inputs, attention_mask, labels in DataLoader(dataset, batch_size=4):
         inputs, attention_mask, labels = inputs.to(DEVICE), attention_mask.to(DEVICE), labels.to(DEVICE)
         loss = generator(input_ids=inputs, attention_mask=attention_mask, labels=labels).loss
         running_loss += loss.item()
@@ -148,7 +149,7 @@ def evaluate_generator(generator: Generator, dataset: GeneratorDataset) -> float
 def main():
     logging.info('Starting GenBot')
     # Setup classifier datasets
-    classifier_tokenizer = IntentClassifier.init_tokenizer()
+    classifier_tokenizer = DistilBertTokenizerFast.from_pretrained(IntentClassifier.model_name)
     classifier_dataset = get_classifier_dataset(classifier_tokenizer)
     classifier_testset = get_classifier_testset(classifier_dataset.intents, classifier_tokenizer)
     # Setup, train, & evaluate classifier

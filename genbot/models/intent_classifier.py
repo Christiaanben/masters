@@ -8,7 +8,6 @@ class IntentClassifier(nn.Module):
 
     def __init__(self, n_labels, optimizer_class=Adam, criterion_class=nn.BCEWithLogitsLoss):
         super().__init__()
-        self.tokenizer = self.init_tokenizer()
         self.model = DistilBertForSequenceClassification.from_pretrained(
             self.model_name,
             num_labels=n_labels,
@@ -19,10 +18,6 @@ class IntentClassifier(nn.Module):
         self.criterion = criterion_class()
         self.optimizer = optimizer_class(self.parameters(), lr=1e-5)
         self.device = 'cpu'
-
-    @classmethod
-    def init_tokenizer(cls) -> DistilBertTokenizerFast:
-        return DistilBertTokenizerFast.from_pretrained(cls.model_name)
 
     def forward(self, inputs):
         return self.model(**inputs)
