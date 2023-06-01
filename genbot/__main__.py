@@ -2,7 +2,6 @@ import json
 import logging
 
 import torch
-from torch.nn import BCEWithLogitsLoss
 from torch.optim.adam import Adam
 from torch.utils.data import DataLoader
 from tqdm import tqdm
@@ -27,8 +26,7 @@ def get_classifier_dataset(tokenizer) -> IntentClassificationDataset:
 
 
 def init_classifier(dataset: IntentClassificationDataset) -> IntentClassifier:
-    return IntentClassifier(dataset.n_labels, optimizer_class=Adam,
-                            criterion_class=BCEWithLogitsLoss).to(DEVICE)
+    return IntentClassifier(dataset.n_labels, optimizer_class=Adam).to(DEVICE)
 
 
 def train_intent_classifier(classifier: IntentClassifier, dataset: IntentClassificationDataset,
@@ -139,7 +137,7 @@ def train_generator(generator: Generator, dataset: GeneratorDataset) -> None:
 def evaluate_generator(generator: Generator, dataset: GeneratorDataset) -> float:
     generator.eval()
     running_loss = 0.
-    for inputs, attention_mask, labels in DataLoader(dataset, batch_size=4):
+    for inputs, attention_mask, labels in DataLoader(dataset, batch_size=2):
         inputs, attention_mask, labels = inputs.to(DEVICE), attention_mask.to(DEVICE), labels.to(DEVICE)
         loss = generator(input_ids=inputs, attention_mask=attention_mask, labels=labels).loss
         running_loss += loss.item()
@@ -154,7 +152,7 @@ def main():
     classifier_testset = get_classifier_testset(classifier_dataset.intents, classifier_tokenizer)
     # Setup, train, & evaluate classifier
     classifier = init_classifier(classifier_dataset)
-    train_intent_classifier(classifier, classifier_dataset, n_epochs=3)
+    train_intent_classifier(classifier, classifier_dataset, n_epochs=3)  # 30 epochs
     loss = evaluate_intent_classifier(classifier, classifier_testset)
     logging.info(f'Evaluation loss: {loss}')
     # Eval: classifier_dataset.intents[torch.argmax(classifier.forward(classifier_tokenizer(text, return_tensors='pt')))]

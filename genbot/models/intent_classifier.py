@@ -1,12 +1,12 @@
 from torch import nn
 from torch.optim import Adam
-from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
+from transformers import DistilBertForSequenceClassification
 
 
 class IntentClassifier(nn.Module):
     model_name = 'distilbert-base-uncased'
 
-    def __init__(self, n_labels, optimizer_class=Adam, criterion_class=nn.BCEWithLogitsLoss):
+    def __init__(self, n_labels, optimizer_class=Adam):
         super().__init__()
         self.model = DistilBertForSequenceClassification.from_pretrained(
             self.model_name,
@@ -15,7 +15,6 @@ class IntentClassifier(nn.Module):
             return_dict=True
         )
         self.linear = nn.Linear(768, n_labels)
-        self.criterion = criterion_class()
         self.optimizer = optimizer_class(self.parameters(), lr=1e-5)
         self.device = 'cpu'
 
