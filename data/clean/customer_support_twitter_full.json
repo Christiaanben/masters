@@ -642,13 +642,17 @@
       "id": 1787,
       "text": "@AppleSupport Worked ",
       "authored": false,
-      "intents": []
+      "intents": [
+        "success"
+      ]
     },
     {
       "id": 1786,
       "text": "USERNAME Glad to hear and just reach out again if you need help. Have a good one!",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_pleasure"
+      ]
     }
   ],
   [
@@ -656,13 +660,18 @@
       "id": 2610,
       "text": "@AppleSupport $100 billion says that solves my problem? I'm on 11.0.3 currently. Hold please.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "await",
+        "update"
+      ]
     },
     {
       "id": 2609,
       "text": "USERNAME Let us know and we'll continue from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_await"
+      ]
     }
   ],
   [
@@ -670,25 +679,38 @@
       "id": 2616,
       "text": "@AppleSupport why is my battery life short? I updated to 11.1, my battery is poor. Wife didn't she likes her battery life",
       "authored": false,
-      "intents": []
+      "intents": [
+        "version",
+        "update",
+        "battery"
+      ]
     },
     {
       "id": 2614,
       "text": "USERNAME Let's work together on this situation. To clarify, did this start after updating to iOS 11.1? Also, which device are you using?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_post_update",
+        "utter_model"
+      ]
     },
     {
       "id": 2615,
       "text": "@AppleSupport Yes, after the update. I Phone 7",
       "authored": false,
-      "intents": []
+      "intents": [
+        "affirm",
+        "model"
+      ]
     },
     {
       "id": 2617,
       "text": "USERNAME Got it. Does this happen while using any particular App or feature? Let us know via a DM. We'll keep moving forward from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_more_info",
+        "utter_dm"
+      ]
     }
   ],
   [
@@ -696,25 +718,37 @@
       "id": 2620,
       "text": "@AppleSupport watchOs4 made my watch pointless Browsing music on my phone via the watch was 80% reason for buying it now it's useless.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "watch_os_update",
+        "music_control",
+        "help"
+      ]
     },
     {
       "id": 2618,
       "text": "USERNAME You should still be able to control Music on your iPhone from the watch. Check out the user guide here: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_feature_still_there",
+        "utter_guide"
+      ]
     },
     {
       "id": 2619,
       "text": "@AppleSupport But this does not show the music stored on my phone like it did in os3. I do not want to store music on my phone.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "music_stored",
+        "help"
+      ]
     },
     {
       "id": 2621,
       "text": "USERNAME We certainly want to take a closer look into this issue. Select the following link to join us in a DM and we'll go from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_dm"
+      ]
     }
   ],
   [
@@ -722,25 +756,37 @@
       "id": 2628,
       "text": "Question- USERNAME USERNAME my iPhone6 dies very quick (have to charge it 3 times a day) my iPhone5 battery was faulty. Could this be the same?",
       "authored": false,
-      "intents": []
+      "intents": [
+        "model",
+        "battery"
+      ]
     },
     {
       "id": 2626,
       "text": "USERNAME We know how important your battery is & we'll be happy to help. Which iOS version are you using? Also, when did this issue begin?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_battery",
+        "utter_version",
+        "utter_when"
+      ]
     },
     {
       "id": 2627,
       "text": "@AppleSupport iOS 11.1 it's been getting worse for a few months now",
       "authored": false,
-      "intents": []
+      "intents": [
+        "noticable_decline",
+        "version"
+      ]
     },
     {
       "id": 2629,
       "text": "USERNAME Please meet with us in DM. We'd like to gather some additional details from you. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_dm"
+      ]
     }
   ],
   [
@@ -748,25 +794,36 @@
       "id": 2632,
       "text": "And why is my music NEVER in my control center?! @AppleSupport",
       "authored": false,
-      "intents": []
+      "intents": [
+        "music_control"
+      ]
     },
     {
       "id": 2630,
       "text": "USERNAME We're here to help out! Which device is this on and which version of iOS is currently installed?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_model",
+        "utter_version"
+      ]
     },
     {
       "id": 2631,
       "text": "@AppleSupport iPhone 7+, iOS 11.1",
       "authored": false,
-      "intents": []
+      "intents": [
+        "version",
+        "model"
+      ]
     },
     {
       "id": 2633,
       "text": "USERNAME Thank you very much! Send us a DM to let us know if your speaker doesn't work on calls, or if other apps are affected as well. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_more_info",
+        "utter_dm"
+      ]
     }
   ],
   [
@@ -774,13 +831,20 @@
       "id": 2635,
       "text": "USERNAME Just updated iOS on iPhone7, now iCloud backup greyed out, cannot be turned on, says Last Backup Never",
       "authored": false,
-      "intents": []
+      "intents": [
+        "model",
+        "update",
+        "icloud"
+      ]
     },
     {
       "id": 2634,
       "text": "USERNAME Check out this link: URL Send us a DM if it doesn't help. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "utter_guide",
+        "utter_dm"
+      ]
     }
   ],
   [
