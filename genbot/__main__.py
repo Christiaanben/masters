@@ -30,6 +30,7 @@ def init_classifier(dataset: IntentClassificationDataset) -> IntentClassifier:
 
 
 def train_intent_classifier(classifier: IntentClassifier, dataset: IntentClassificationDataset,
+                            validation_dataset: IntentClassificationDataset,
                             n_epochs: int = N_EPOCHS) -> None:
     classifier.train()
     for epoch in tqdm(range(n_epochs)):
@@ -44,7 +45,8 @@ def train_intent_classifier(classifier: IntentClassifier, dataset: IntentClassif
             loss.backward()
             classifier.optimizer.step()
             classifier.optimizer.zero_grad()
-        logging.info(f'running_loss: {running_loss / len(dataset)}')
+        logging.info(f'Training loss: {running_loss / len(dataset):.5f}')
+        evaluate_intent_classifier(classifier, validation_dataset)
 
 
 def get_classifier_testset(intents, tokenizer) -> IntentClassificationDataset:
@@ -56,12 +58,20 @@ def get_classifier_testset(intents, tokenizer) -> IntentClassificationDataset:
 def evaluate_intent_classifier(classifier, dataset: IntentClassificationDataset):
     classifier.eval()
     losses = []
+    targets = torch.tensor([])
+    predictions = torch.tensor([])
     for batch in DataLoader(dataset, batch_size=2):
         batch = {k: v.to(DEVICE) for k, v in batch.items()}
+        targets = torch.cat((targets, batch['labels'].cpu()))
         outputs = classifier(batch)
+        predictions = torch.cat((predictions, outputs.logits.cpu()))
         loss = outputs.loss
         losses.append(loss.item())
-    return sum(losses) / len(losses)
+    avg_loss = sum(losses) / len(losses)
+    logging.info(f'Validation loss: {avg_loss:.5f}')
+    f1_metrics = MultilabelF1Score(num_labels=targets.shape[1], threshold=0.5)
+    logging.info(f'F1 metrics: {f1_metrics(predictions, targets)}')
+    return avg_loss
 
 
 def get_predictor_dataset() -> IntentPredictionDataset:
@@ -152,7 +162,7 @@ def main():
     classifier_testset = get_classifier_testset(classifier_dataset.intents, classifier_tokenizer)
     # Setup, train, & evaluate classifier
     classifier = init_classifier(classifier_dataset)
-    train_intent_classifier(classifier, classifier_dataset, n_epochs=3)  # 30 epochs
+    train_intent_classifier(classifier, classifier_dataset, validation_dataset=classifier_testset, n_epochs=3)  # 30 epochs
     loss = evaluate_intent_classifier(classifier, classifier_testset)
     logging.info(f'Evaluation loss: {loss}')
     # Eval: classifier_dataset.intents[torch.argmax(classifier.forward(classifier_tokenizer(text, return_tensors='pt')))]
