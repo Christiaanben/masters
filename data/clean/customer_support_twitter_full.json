@@ -852,25 +852,18 @@
       "id": 2638,
       "text": "@AppleSupport ...cost for sending in for diagnosing a problem if it's out of warranty?",
       "authored": false,
-      "intents": []
+      "intents": [
+        "quote_request",
+        "out_of_warranty"
+      ]
     },
     {
       "id": 2636,
       "text": "USERNAME We can help. Let's start with the following steps to see if we can save you a trip in for service: URL",
       "authored": true,
-      "intents": []
-    },
-    {
-      "id": 2637,
-      "text": "@AppleSupport Hi, I plugged an adapter straight into the transformer and it still didn't charger. The charger LED does not light up either.",
-      "authored": false,
-      "intents": []
-    },
-    {
-      "id": 2639,
-      "text": "USERNAME We certainly want to take a closer look into this. Select the following link to join us in a DM and we'll go from there. URL",
-      "authored": true,
-      "intents": []
+      "intents": [
+        "utter_guide"
+      ]
     }
   ],
   [
