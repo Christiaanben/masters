@@ -17,7 +17,9 @@ setup(
         'numpy~=1.24',
         'pandas~=2.0',
         'torch~=2.0',
-        'transformers~=4.28'
+        'transformers~=4.28',
+        'torchmetrics~=0.11.4',
+        'inquirer~=3.1',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
