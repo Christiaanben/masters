@@ -20,6 +20,7 @@ setup(
         'transformers~=4.28',
         'torchmetrics~=0.11.4',
         'inquirer~=3.1',
+        'lightning~=2.0',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',

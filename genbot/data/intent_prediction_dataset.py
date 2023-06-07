@@ -14,7 +14,7 @@ class IntentPredictionDataset(Dataset):
         self.conversation_indices = []
         for conversation_idx, conversation in enumerate(self.conversations):
             for message_idx, message in enumerate(conversation):
-                if message.get('authored'):
+                if message.get('authored') and message_idx > 0:
                     self.conversation_indices.append((conversation_idx, message_idx))
 
     def _get_label_sequence_tensor(self, intents: List[str]):
@@ -25,7 +25,7 @@ class IntentPredictionDataset(Dataset):
     def __getitem__(self, index: int):
         conversation_index, text_index = self.conversation_indices[index]
         conversation = self.conversations[conversation_index]
-        intents = [tweet.get('intent') for tweet in conversation[:text_index + 1]]
+        intents = [tweet.get('intents') for tweet in conversation[:text_index + 1]]
         inputs = self._get_label_sequence_tensor(intents[:-1])
         targets = self.get_label(intents[-1])
         return inputs, targets

@@ -6,7 +6,7 @@ from torch.optim.adam import Adam
 from torch.utils.data import DataLoader
 from torchmetrics.functional.classification import multilabel_f1_score
 from tqdm import tqdm
-from transformers import DistilBertTokenizerFast
+import lightning.pytorch as pl
 
 from genbot.data import GeneratorDataset, IntentClassificationDataset, IntentPredictionDataset
 from genbot.models.generator import Generator
@@ -38,15 +38,15 @@ def train_intent_classifier(classifier: IntentClassifier, dataset: IntentClassif
     for epoch in tqdm(range(n_epochs)):
         logging.info(f"Epoch {epoch}")
         running_loss = 0.
-        for batch in DataLoader(dataset, batch_size=6, shuffle=True):
+        for batch in DataLoader(dataset, batch_size=2, shuffle=True):
             torch.cuda.empty_cache()
             batch = {k: v.to(DEVICE) for k, v in batch.items()}
             outputs = classifier(batch)
             loss = outputs.loss
             running_loss += loss
+            classifier.optimizer.zero_grad()
             loss.backward()
             classifier.optimizer.step()
-            classifier.optimizer.zero_grad()
         logging.info(f'Training loss: {running_loss / len(dataset):.5f}')
         evaluate_intent_classifier(classifier, validation_dataset)
 
@@ -96,26 +96,17 @@ def get_predictor_testset() -> IntentPredictionDataset:
 
 
 def init_predictor() -> IntentPredictor:
-    return IntentPredictor().to('cuda')
+    return IntentPredictor(n_labels=50).to('cuda')
 
 
 def train_intent_predictor(predictor: IntentPredictor, dataset: IntentPredictionDataset) -> None:
-    predictor.train()
-    for epoch in tqdm(range(N_EPOCHS)):
-        logging.info(f"Epoch {epoch}")
-        running_loss = 0.
-        for inputs, targets in DataLoader(dataset, batch_size=2):
-            inputs, targets = inputs.to(DEVICE), targets.to(DEVICE)
-            outputs = predictor(inputs)
-            loss = predictor.criterion(outputs, targets)
-            running_loss += loss
-            loss.backward()
-            predictor.optimizer.step()
-        logging.info(f'running_loss: {running_loss / len(dataset)}')
+    trainer = pl.Trainer(max_epochs=2)
+    trainer.fit(predictor, DataLoader(dataset, batch_size=2))
 
 
 def evaluate_intent_predictor(predictor: IntentPredictor, dataset: IntentPredictionDataset) -> float:
     predictor.eval()
+    predictor.to(DEVICE)
     losses = []
     for inputs, targets in DataLoader(dataset, batch_size=2):
         inputs, targets = inputs.to(DEVICE), targets.to(DEVICE)
@@ -166,28 +157,28 @@ def evaluate_generator(generator: Generator, dataset: GeneratorDataset) -> float
 def main():
     logging.info('Starting GenBot')
     # Setup classifier datasets
-    classifier_tokenizer = DistilBertTokenizerFast.from_pretrained(IntentClassifier.model_name)
-    classifier_dataset = get_classifier_dataset(classifier_tokenizer)
-    classifier_testset = get_classifier_testset(classifier_dataset.intents, classifier_tokenizer)
-    # Setup, train, & evaluate classifier
-    classifier = init_classifier(classifier_dataset)
-    train_intent_classifier(
-        classifier,
-        classifier_dataset,
-        validation_dataset=classifier_testset,
-        n_epochs=30)  # 30 epochs
-    loss = evaluate_intent_classifier(classifier, classifier_testset)
-    logging.info(f'Evaluation loss: {loss}')
+    # classifier_tokenizer = DistilBertTokenizerFast.from_pretrained(IntentClassifier.model_name)
+    # classifier_dataset = get_classifier_dataset(classifier_tokenizer)
+    # classifier_testset = get_classifier_testset(classifier_dataset.intents, classifier_tokenizer)
+    # # Setup, train, & evaluate classifier
+    # classifier = init_classifier(classifier_dataset)
+    # train_intent_classifier(
+    #     classifier,
+    #     classifier_dataset,
+    #     validation_dataset=classifier_testset,
+    #     n_epochs=30)  # 30 epochs
+    # loss = evaluate_intent_classifier(classifier, classifier_testset)
+    # logging.info(f'Evaluation loss: {loss}')
     # Eval: classifier_dataset.intents[torch.argmax(classifier.forward(classifier_tokenizer(text, return_tensors='pt')))]
 
-    # # Setup intent predictor datasets
-    # predictor_dataset = get_predictor_dataset()
-    # predictor_testset = get_predictor_testset()
-    # # Setup, train, & evaluate intent predictor
-    # predictor = init_predictor()
-    # train_intent_predictor(predictor, predictor_dataset)
-    # loss = evaluate_intent_predictor(predictor, predictor_testset)
-    # logging.info(f'Evaluation loss: {loss}')
+    # Setup intent predictor datasets
+    predictor_dataset = get_predictor_dataset()
+    predictor_testset = get_predictor_testset()
+    # Setup, train, & evaluate intent predictor
+    predictor = init_predictor()
+    train_intent_predictor(predictor, predictor_dataset)
+    loss = evaluate_intent_predictor(predictor, predictor_testset)
+    logging.info(f'Evaluation loss: {loss}')
 
     # # Setup generator datasets
     # generator_dataset = get_generator_dataset()
