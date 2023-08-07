@@ -7,6 +7,7 @@ from torch.utils.data import DataLoader
 from torchmetrics.functional.classification import multilabel_f1_score
 from tqdm import tqdm
 import lightning.pytorch as pl
+from transformers import DistilBertTokenizerFast
 
 from genbot.data import GeneratorDataset, IntentClassificationDataset, IntentPredictionDataset
 from genbot.models.generator import Generator
@@ -28,27 +29,8 @@ def get_classifier_dataset(tokenizer) -> IntentClassificationDataset:
 
 
 def init_classifier(dataset: IntentClassificationDataset) -> IntentClassifier:
-    return IntentClassifier(dataset.n_labels, optimizer_class=Adam).to(DEVICE)
+    return IntentClassifier(dataset.n_labels)
 
-
-def train_intent_classifier(classifier: IntentClassifier, dataset: IntentClassificationDataset,
-                            validation_dataset: IntentClassificationDataset,
-                            n_epochs: int = N_EPOCHS) -> None:
-    classifier.train()
-    for epoch in tqdm(range(n_epochs)):
-        logging.info(f"Epoch {epoch}")
-        running_loss = 0.
-        for batch in DataLoader(dataset, batch_size=2, shuffle=True):
-            torch.cuda.empty_cache()
-            batch = {k: v.to(DEVICE) for k, v in batch.items()}
-            outputs = classifier(batch)
-            loss = outputs.loss
-            running_loss += loss
-            classifier.optimizer.zero_grad()
-            loss.backward()
-            classifier.optimizer.step()
-        logging.info(f'Training loss: {running_loss / len(dataset):.5f}')
-        evaluate_intent_classifier(classifier, validation_dataset)
 
 
 def get_classifier_testset(intents, tokenizer) -> IntentClassificationDataset:
@@ -157,28 +139,29 @@ def evaluate_generator(generator: Generator, dataset: GeneratorDataset) -> float
 def main():
     logging.info('Starting GenBot')
     # Setup classifier datasets
-    # classifier_tokenizer = DistilBertTokenizerFast.from_pretrained(IntentClassifier.model_name)
-    # classifier_dataset = get_classifier_dataset(classifier_tokenizer)
-    # classifier_testset = get_classifier_testset(classifier_dataset.intents, classifier_tokenizer)
-    # # Setup, train, & evaluate classifier
-    # classifier = init_classifier(classifier_dataset)
-    # train_intent_classifier(
-    #     classifier,
-    #     classifier_dataset,
-    #     validation_dataset=classifier_testset,
-    #     n_epochs=30)  # 30 epochs
-    # loss = evaluate_intent_classifier(classifier, classifier_testset)
-    # logging.info(f'Evaluation loss: {loss}')
+    classifier_tokenizer = DistilBertTokenizerFast.from_pretrained(IntentClassifier.model_name)
+    classifier_dataset = get_classifier_dataset(classifier_tokenizer)
+    classifier_testset = get_classifier_testset(classifier_dataset.intents, classifier_tokenizer)
+    # Setup, train, & evaluate classifier
+    classifier = init_classifier(classifier_dataset)
+
+    trainer = pl.Trainer(max_epochs=3)
+    trainer.fit(
+        classifier,
+        DataLoader(classifier_dataset, batch_size=2, shuffle=True),
+        DataLoader(classifier_testset, batch_size=2, shuffle=False)
+    )
+    trainer.validate(classifier, DataLoader(classifier_testset, batch_size=2, shuffle=False))
     # Eval: classifier_dataset.intents[torch.argmax(classifier.forward(classifier_tokenizer(text, return_tensors='pt')))]
 
-    # Setup intent predictor datasets
-    predictor_dataset = get_predictor_dataset()
-    predictor_testset = get_predictor_testset()
-    # Setup, train, & evaluate intent predictor
-    predictor = init_predictor()
-    train_intent_predictor(predictor, predictor_dataset)
-    loss = evaluate_intent_predictor(predictor, predictor_testset)
-    logging.info(f'Evaluation loss: {loss}')
+    # # Setup intent predictor datasets
+    # predictor_dataset = get_predictor_dataset()
+    # predictor_testset = get_predictor_testset()
+    # # Setup, train, & evaluate intent predictor
+    # predictor = init_predictor()
+    # train_intent_predictor(predictor, predictor_dataset)
+    # loss = evaluate_intent_predictor(predictor, predictor_testset)
+    # logging.info(f'Evaluation loss: {loss}')
 
     # # Setup generator datasets
     # generator_dataset = get_generator_dataset()
