@@ -38,33 +38,6 @@ def get_classifier_testset(intents, tokenizer) -> IntentClassificationDataset:
         test = json.load(file)
     return IntentClassificationDataset(test, intents, tokenizer=tokenizer)
 
-
-def evaluate_intent_classifier(classifier, dataset: IntentClassificationDataset):
-    classifier.eval()
-    losses = []
-    targets = torch.tensor([])
-    predictions = torch.tensor([])
-    for batch in DataLoader(dataset, batch_size=2):
-        batch = {k: v.to(DEVICE) for k, v in batch.items()}
-        targets = torch.cat((targets, batch['labels'].cpu()))
-        outputs = classifier(batch)
-        predictions = torch.cat((predictions, outputs.logits.cpu()))
-        loss = outputs.loss
-        losses.append(loss.item())
-    avg_loss = sum(losses) / len(losses)
-    import numpy as np
-    avg_prob = float(np.average(torch.sigmoid(predictions).detach().numpy()))
-    print('predictions:', predictions)
-    print('targets:', targets)
-    print('sigmoid predictions:', torch.sigmoid(predictions))
-    print('avg prob:', avg_prob)
-    f1_score = multilabel_f1_score(predictions, targets, num_labels=targets.shape[1], threshold=avg_prob, average='micro')
-    f1_score_low_threshold = multilabel_f1_score(torch.sigmoid(predictions), targets, num_labels=targets.shape[1], threshold=0.1, average='micro')
-    f1_score_optimal_threshold = multilabel_f1_score(torch.sigmoid(predictions), targets, num_labels=targets.shape[1], threshold=float(f1_score/2), average='micro')
-    logging.info(f'Validation Loss: {avg_loss:.5f}; F1 score: {f1_score:.5f}, F1 score (low threshold): {f1_score_low_threshold:.5f}, F1 score (optimal threshold): {f1_score_optimal_threshold:.5f}')
-    return avg_loss
-
-
 def get_predictor_dataset() -> IntentPredictionDataset:
     with open(DATASET_FILENAME) as file:
         data = json.load(file)
