@@ -49,19 +49,6 @@ def get_predictor_testset() -> IntentPredictionDataset:
         data = json.load(file)
     return IntentPredictionDataset(data)
 
-
-def evaluate_intent_predictor(predictor: IntentPredictor, dataset: IntentPredictionDataset) -> float:
-    predictor.eval()
-    predictor.to(DEVICE)
-    losses = []
-    for inputs, targets in DataLoader(dataset, batch_size=2):
-        inputs, targets = inputs.to(DEVICE), targets.to(DEVICE)
-        outputs = predictor(inputs)
-        loss = predictor.criterion(outputs, targets)
-        losses.append(loss.item())
-    return sum(losses) / len(losses)
-
-
 def get_generator_dataset() -> GeneratorDataset:
     with open(DATASET_FILENAME) as file:
         data = json.load(file)
@@ -101,6 +88,7 @@ def evaluate_generator(generator: Generator, dataset: GeneratorDataset) -> float
 
 
 def main():
+    torch.manual_seed(42)
     logging.info('Starting GenBot')
     # Setup classifier datasets
     # classifier_tokenizer = DistilBertTokenizerFast.from_pretrained(IntentClassifier.model_name)
@@ -125,8 +113,7 @@ def main():
     predictor = IntentPredictor(n_labels=50)
     predictor_trainer = pl.Trainer(max_epochs=2)
     predictor_trainer.fit(predictor, DataLoader(predictor_dataset, batch_size=2))
-    loss = evaluate_intent_predictor(predictor, predictor_testset)
-    logging.info(f'Evaluation loss: {loss}')
+    predictor_trainer.validate(predictor, DataLoader(predictor_testset, batch_size=2))
 
     # # Setup generator datasets
     # generator_dataset = get_generator_dataset()
