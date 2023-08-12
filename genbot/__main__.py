@@ -50,15 +50,6 @@ def get_predictor_testset() -> IntentPredictionDataset:
     return IntentPredictionDataset(data)
 
 
-def init_predictor() -> IntentPredictor:
-    return IntentPredictor(n_labels=50).to('cuda')
-
-
-def train_intent_predictor(predictor: IntentPredictor, dataset: IntentPredictionDataset) -> None:
-    trainer = pl.Trainer(max_epochs=2)
-    trainer.fit(predictor, DataLoader(dataset, batch_size=2))
-
-
 def evaluate_intent_predictor(predictor: IntentPredictor, dataset: IntentPredictionDataset) -> float:
     predictor.eval()
     predictor.to(DEVICE)
@@ -112,29 +103,30 @@ def evaluate_generator(generator: Generator, dataset: GeneratorDataset) -> float
 def main():
     logging.info('Starting GenBot')
     # Setup classifier datasets
-    classifier_tokenizer = DistilBertTokenizerFast.from_pretrained(IntentClassifier.model_name)
-    classifier_dataset = get_classifier_dataset(classifier_tokenizer)
-    classifier_testset = get_classifier_testset(classifier_dataset.intents, classifier_tokenizer)
-    # Setup, train, & evaluate classifier
-    classifier = init_classifier(classifier_dataset)
-
-    trainer = pl.Trainer(max_epochs=3)
-    trainer.fit(
-        classifier,
-        DataLoader(classifier_dataset, batch_size=2, shuffle=True),
-        DataLoader(classifier_testset, batch_size=2, shuffle=False)
-    )
-    trainer.validate(classifier, DataLoader(classifier_testset, batch_size=2, shuffle=False))
+    # classifier_tokenizer = DistilBertTokenizerFast.from_pretrained(IntentClassifier.model_name)
+    # classifier_dataset = get_classifier_dataset(classifier_tokenizer)
+    # classifier_testset = get_classifier_testset(classifier_dataset.intents, classifier_tokenizer)
+    # # Setup, train, & evaluate classifier
+    # classifier = init_classifier(classifier_dataset)
+    #
+    # trainer = pl.Trainer(max_epochs=3)
+    # trainer.fit(
+    #     classifier,
+    #     DataLoader(classifier_dataset, batch_size=2, shuffle=True),
+    #     DataLoader(classifier_testset, batch_size=2, shuffle=False)
+    # )
+    # trainer.validate(classifier, DataLoader(classifier_testset, batch_size=2, shuffle=False))
     # Eval: classifier_dataset.intents[torch.argmax(classifier.forward(classifier_tokenizer(text, return_tensors='pt')))]
 
-    # # Setup intent predictor datasets
-    # predictor_dataset = get_predictor_dataset()
-    # predictor_testset = get_predictor_testset()
-    # # Setup, train, & evaluate intent predictor
-    # predictor = init_predictor()
-    # train_intent_predictor(predictor, predictor_dataset)
-    # loss = evaluate_intent_predictor(predictor, predictor_testset)
-    # logging.info(f'Evaluation loss: {loss}')
+    # Setup intent predictor datasets
+    predictor_dataset = get_predictor_dataset()
+    predictor_testset = get_predictor_testset()
+    # Setup, train, & evaluate intent predictor
+    predictor = IntentPredictor(n_labels=50)
+    predictor_trainer = pl.Trainer(max_epochs=2)
+    predictor_trainer.fit(predictor, DataLoader(predictor_dataset, batch_size=2))
+    loss = evaluate_intent_predictor(predictor, predictor_testset)
+    logging.info(f'Evaluation loss: {loss}')
 
     # # Setup generator datasets
     # generator_dataset = get_generator_dataset()
