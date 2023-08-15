@@ -14,7 +14,7 @@ from genbot.models.generator import Generator
 from models import IntentClassifier, IntentPredictor
 
 DATASET_FILENAME = '../data/clean/customer_support_twitter_full.json'
-TESTSET_FILENAME = '../data/clean/customer_support_twitter_full_test.json'
+TESTSET_FILENAME = '../data/clean/customer_support_twitter_sample.json'
 N_EPOCHS = 2
 RETRAIN = True
 DEVICE = 'cuda'
@@ -100,17 +100,17 @@ def main():
     # trainer = pl.Trainer(max_epochs=3)
     # trainer.fit(
     #     classifier,
-    #     DataLoader(classifier_dataset, batch_size=2, shuffle=True),
-    #     DataLoader(classifier_testset, batch_size=2, shuffle=False)
+    #     DataLoader(classifier_dataset, batch_size=4, shuffle=True),
+    #     DataLoader(classifier_testset, batch_size=4, shuffle=False)
     # )
-    # trainer.validate(classifier, DataLoader(classifier_testset, batch_size=2, shuffle=False))
+    # trainer.validate(classifier, DataLoader(classifier_testset, batch_size=4, shuffle=False))
     # Eval: classifier_dataset.intents[torch.argmax(classifier.forward(classifier_tokenizer(text, return_tensors='pt')))]
 
     # Setup intent predictor datasets
     predictor_dataset = get_predictor_dataset()
     predictor_testset = get_predictor_testset()
     # Setup, train, & evaluate intent predictor
-    predictor = IntentPredictor(n_labels=50)
+    predictor = IntentPredictor(n_labels=9)
     predictor_trainer = pl.Trainer(max_epochs=2)
     predictor_trainer.fit(predictor, DataLoader(predictor_dataset, batch_size=2))
     predictor_trainer.validate(predictor, DataLoader(predictor_testset, batch_size=2))

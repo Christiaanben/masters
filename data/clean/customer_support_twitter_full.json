@@ -5,7 +5,7 @@
       "text": "@AppleSupport  URL",
       "authored": false,
       "intents": [
-        "out_of_scope"
+        "URL Share"
       ]
     },
     {
@@ -13,7 +13,10 @@
       "text": "USERNAME We're here for you. Which version of the iOS are you running? Check from Settings > General > About.",
       "authored": true,
       "intents": [
-        "utter_version"
+        "Question",
+        "Provide Information",
+        "Check Version/Details",
+        "Acknowledgement"
       ]
     },
     {
@@ -21,7 +24,7 @@
       "text": "@AppleSupport The newest update. I made sure to download it yesterday.",
       "authored": false,
       "intents": [
-        "version"
+        "Provide Information"
       ]
     },
     {
@@ -29,7 +32,9 @@
       "text": "USERNAME Lets take a closer look into this issue. Select the following link to join us in a DM and we'll go from there. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Report Problem",
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -39,7 +44,8 @@
       "text": "@AppleSupport This is what it looks like URL",
       "authored": false,
       "intents": [
-        "out_of_scope"
+        "Question",
+        "URL Share"
       ]
     },
     {
@@ -47,7 +53,8 @@
       "text": "USERNAME Any steps tried since it started last night?",
       "authored": true,
       "intents": [
-        "utter_tried"
+        "Question",
+        "Troubleshooting"
       ]
     },
     {
@@ -55,8 +62,7 @@
       "text": "@AppleSupport Tried resetting my settings .. restarting my phone .. all that",
       "authored": false,
       "intents": [
-        "restart_phone",
-        "reset_settings"
+        "Troubleshooting"
       ]
     },
     {
@@ -64,7 +70,10 @@
       "text": "USERNAME Let's go to DM for the next steps. DM us here: URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Troubleshooting",
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
       ]
     }
   ],
@@ -74,8 +83,7 @@
       "text": "Tf is wrong with my keyboard USERNAME",
       "authored": false,
       "intents": [
-        "keyboard",
-        "help"
+        "Report Problem"
       ]
     },
     {
@@ -83,7 +91,7 @@
       "text": "USERNAME Fill us in on what is happening, then we can help out from there.",
       "authored": true,
       "intents": [
-        "utter_more_info"
+        "Question"
       ]
     },
     {
@@ -91,7 +99,8 @@
       "text": "@AppleSupport This is what is happening... URL",
       "authored": false,
       "intents": [
-        "out_of_scope"
+        "Question",
+        "URL Share"
       ]
     },
     {
@@ -99,7 +108,10 @@
       "text": "USERNAME We'd like to investigate further with you. Send us a DM and we can troubleshoot more from there. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Troubleshooting",
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
       ]
     }
   ],
@@ -109,7 +121,7 @@
       "text": "USERNAME @AppleSupport hello are all the lines closed for tonight #help",
       "authored": false,
       "intents": [
-        "help"
+        "Call Center Inquiry"
       ]
     },
     {
@@ -117,7 +129,9 @@
       "text": "USERNAME What's going on? We're hapy to help if we can. URL",
       "authored": true,
       "intents": [
-        "utter_more_info"
+        "Question",
+        "URL Share",
+        "Acknowledgement"
       ]
     },
     {
@@ -125,7 +139,8 @@
       "text": "@AppleSupport are the call centres closed for the night?",
       "authored": false,
       "intents": [
-        "ask_call_centre_closed"
+        "Question",
+        "Call Center Inquiry"
       ]
     },
     {
@@ -133,7 +148,7 @@
       "text": "USERNAME We've received your DM and will continue there.",
       "authored": true,
       "intents": [
-        "utter_dm_received"
+        "Direct to DM"
       ]
     }
   ],
@@ -143,7 +158,9 @@
       "text": "USERNAME Reach out to us via DM, and we can take a look at this with you. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
       ]
     }
   ],
@@ -153,7 +170,7 @@
       "text": "@AppleSupport I've got a screenshot saying my #iPhoneX is reserved for the 3rd then an email saying it's the 18th... what happened?",
       "authored": false,
       "intents": [
-        "delay"
+        "Question"
       ]
     },
     {
@@ -161,8 +178,8 @@
       "text": "USERNAME Go ahead and send us a DM please. Let us know the country you're in.",
       "authored": true,
       "intents": [
-        "utter_country",
-        "utter_dm"
+        "Troubleshooting",
+        "Direct to DM"
       ]
     }
   ],
@@ -172,8 +189,7 @@
       "text": "Thank you @AppleSupport I updated my phone and now it is even slower and barely works. Thank you for ruining my phone.",
       "authored": false,
       "intents": [
-        "slow",
-        "update"
+        "Report Problem"
       ]
     },
     {
@@ -181,8 +197,9 @@
       "text": "USERNAME We'd like to help, but we'll need more details. What's happening on your device and which model is it? Do you have iOS 11.1?",
       "authored": true,
       "intents": [
-        "utter_more_info",
-        "utter_version"
+        "Question",
+        "Check Version/Details",
+        "Acknowledgement"
       ]
     },
     {
@@ -190,8 +207,7 @@
       "text": "@AppleSupport I have the iPhone 6s Plus and just did the most recent update.",
       "authored": false,
       "intents": [
-        "model",
-        "version"
+        "Provide Information"
       ]
     },
     {
@@ -199,8 +215,11 @@
       "text": "USERNAME To make sure, is iOS 11.1 installed on it currently? Also, any steps tried so far? DM us here: URL",
       "authored": true,
       "intents": [
-        "utter_tried",
-        "utter_version"
+        "Question",
+        "Troubleshooting",
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
       ]
     }
   ],
@@ -210,7 +229,7 @@
       "text": "Hola @AppleSupport necesito urgente la actualizacin de software. La batera me dura literal medio da ",
       "authored": false,
       "intents": [
-        "spanish"
+        "Report Problem"
       ]
     },
     {
@@ -218,7 +237,7 @@
       "text": "USERNAME We offer support via Twitter in English. Get help in Spanish here: URL or join URL",
       "authored": true,
       "intents": [
-        "utter_english"
+        "URL Share"
       ]
     },
     {
@@ -226,8 +245,7 @@
       "text": "@AppleSupport I need the software update urgently. The battery lasts literally half a day @AppleSupport",
       "authored": false,
       "intents": [
-        "help",
-        "battery"
+        "Report Problem"
       ]
     },
     {
@@ -235,7 +253,7 @@
       "text": "USERNAME Hi there! What type of device are we working with?",
       "authored": true,
       "intents": [
-        "utter_model"
+        "Question"
       ]
     },
     {
@@ -243,7 +261,7 @@
       "text": "@AppleSupport iPhone 7 Plus ",
       "authored": false,
       "intents": [
-        "model"
+        "Provide Information"
       ]
     },
     {
@@ -251,7 +269,9 @@
       "text": "USERNAME Thanks! Which iOS version is currently showing in Settings > General > About?",
       "authored": true,
       "intents": [
-        "utter_version"
+        "Question",
+        "Provide Information",
+        "Check Version/Details"
       ]
     },
     {
@@ -259,7 +279,7 @@
       "text": "@AppleSupport iOS 11.0.3",
       "authored": false,
       "intents": [
-        "version"
+        "Check Version/Details"
       ]
     },
     {
@@ -267,7 +287,7 @@
       "text": "USERNAME Let's check Settings > General > Software Update. iOS 11.1 was released earlier today. If you see it, please backup & update.",
       "authored": true,
       "intents": [
-        "utter_update"
+        "Check Version/Details"
       ]
     },
     {
@@ -275,7 +295,7 @@
       "text": "@AppleSupport Okey. Thank you! ",
       "authored": false,
       "intents": [
-        "thanks"
+        "Acknowledgement"
       ]
     },
     {
@@ -283,7 +303,7 @@
       "text": "USERNAME Our pleasure. If you're still having issues after a back up and update, contact us back. We're happy to help.",
       "authored": true,
       "intents": [
-        "utter_pleasure"
+        "Report Problem"
       ]
     }
   ],
@@ -293,7 +313,8 @@
       "text": "@AppleSupport Hi! What is going on? Has Youtube lost it? What can be done about it? Thanks for the support! URL",
       "authored": false,
       "intents": [
-        "help"
+        "Question",
+        "URL Share"
       ]
     },
     {
@@ -301,7 +322,9 @@
       "text": "USERNAME We want to help! DM us and let us know more about the issues you are having. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Report Problem",
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -311,7 +334,7 @@
       "text": "@AppleSupport ? hello",
       "authored": false,
       "intents": [
-        "help"
+        "Question"
       ]
     },
     {
@@ -319,7 +342,8 @@
       "text": "USERNAME We'd like to get you speaking to our experts here: URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "URL Share",
+        "Acknowledgement"
       ]
     }
   ],
@@ -329,8 +353,7 @@
       "text": "MY HOME BUTTON DOESN'T WORK #IOS11 @AppleSupport",
       "authored": false,
       "intents": [
-        "help",
-        "home_button"
+        "Check Version/Details"
       ]
     },
     {
@@ -338,8 +361,9 @@
       "text": "USERNAME Let us help with your Home button. Did this issue start right after iOS 11? Which version of iOS 11 are you running?",
       "authored": true,
       "intents": [
-        "utter_home_button",
-        "utter_version"
+        "Question",
+        "Report Problem",
+        "Check Version/Details"
       ]
     },
     {
@@ -347,7 +371,7 @@
       "text": "@AppleSupport Yes it did, 11.0.3",
       "authored": false,
       "intents": [
-        "version"
+        "Provide Information"
       ]
     },
     {
@@ -355,7 +379,10 @@
       "text": "USERNAME We've just released iOS 11.1. We suggest backing up & updating. Then, test the issue again. Here's how: URL",
       "authored": true,
       "intents": [
-        "utter_update"
+        "Question",
+        "Report Problem",
+        "Check Version/Details",
+        "URL Share"
       ]
     }
   ],
@@ -365,8 +392,7 @@
       "text": "Hey USERNAME! Last time I downloaded an update my freaking phone gave me hell. Any recommendations?",
       "authored": false,
       "intents": [
-        "update",
-        "help"
+        "Question"
       ]
     },
     {
@@ -374,7 +400,9 @@
       "text": "USERNAME We're here to help. Meet us in DM and we can check on available options. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
       ]
     }
   ],
@@ -384,7 +412,7 @@
       "text": "@AppleSupport I can not find an option to get it there. It was just always there when playing.",
       "authored": false,
       "intents": [
-        "help"
+        "Question"
       ]
     },
     {
@@ -392,8 +420,9 @@
       "text": "USERNAME DM us the specific iOS version you are running currently and we'll continue there. URL",
       "authored": true,
       "intents": [
-        "utter_dm",
-        "utter_version"
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
       ]
     }
   ],
@@ -403,8 +432,7 @@
       "text": "I just need USERNAME to do something about the battery life because it sucks ass",
       "authored": false,
       "intents": [
-        "battery",
-        "help"
+        "Report Problem"
       ]
     },
     {
@@ -412,8 +440,8 @@
       "text": "USERNAME We want to help you get your battery life back on track. Please DM and we'll look at it together. URL",
       "authored": true,
       "intents": [
-        "utter_battery",
-        "utter_dm"
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -423,7 +451,7 @@
       "text": "Why does my I not work ?! \nUSERNAME please fix this!!!",
       "authored": false,
       "intents": [
-        "help"
+        "Question"
       ]
     },
     {
@@ -431,9 +459,10 @@
       "text": "USERNAME We'd like to look into this with you. Please DM us your current iOS version and your iPhone model. URL",
       "authored": true,
       "intents": [
-        "utter_version",
-        "utter_dm",
-        "utter_model"
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share",
+        "Acknowledgement"
       ]
     }
   ],
@@ -443,7 +472,8 @@
       "text": "Why is I keep changing to this and how do I stop it USERNAME @AppleSupport #anybody URL",
       "authored": false,
       "intents": [
-        "help"
+        "Question",
+        "URL Share"
       ]
     },
     {
@@ -451,7 +481,7 @@
       "text": "USERNAME We definitely understand your concern. Please backup your iPhone, update and let us know the result: URL",
       "authored": true,
       "intents": [
-        "utter_update"
+        "URL Share"
       ]
     },
     {
@@ -459,7 +489,7 @@
       "text": "@AppleSupport I just updated it and it's still coming up URL",
       "authored": false,
       "intents": [
-        "update"
+        "URL Share"
       ]
     },
     {
@@ -467,7 +497,7 @@
       "text": "USERNAME Let's dig into this further with you. DM us and we'll continue there.",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Direct to DM"
       ]
     }
   ],
@@ -477,8 +507,7 @@
       "text": "iOS 11 is killing my battery USERNAME. Fix it.",
       "authored": false,
       "intents": [
-        "update",
-        "battery"
+        "Check Version/Details"
       ]
     },
     {
@@ -486,7 +515,10 @@
       "text": "USERNAME We're here to help. Which exact iOS version is your device running? This info can be found under Settings > General > About.",
       "authored": true,
       "intents": [
-        "utter_version"
+        "Question",
+        "Provide Information",
+        "Check Version/Details",
+        "Acknowledgement"
       ]
     }
   ],
@@ -496,8 +528,8 @@
       "text": "@AppleSupport why is my home sharing not working and how do i fix it",
       "authored": false,
       "intents": [
-        "home_sharing",
-        "help"
+        "Question",
+        "Report Problem"
       ]
     },
     {
@@ -505,7 +537,7 @@
       "text": "USERNAME We're happy to help. Has Home Sharing worked with these devices before?",
       "authored": true,
       "intents": [
-        "utter_home_sharing_devices"
+        "Question"
       ]
     },
     {
@@ -513,7 +545,7 @@
       "text": "@AppleSupport it has, but not for some time now. i've tried with two different apple ids but it's still not showing up on my phone",
       "authored": false,
       "intents": [
-        "multiple_devices"
+        "Question"
       ]
     },
     {
@@ -521,7 +553,8 @@
       "text": "USERNAME Thanks for clarifying. Let's meet in DM so we can do more in-depth on this. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -531,7 +564,7 @@
       "text": "@AppleSupport USERNAME Battery life just got worst.",
       "authored": false,
       "intents": [
-        "battery"
+        "Report Problem"
       ]
     },
     {
@@ -539,7 +572,8 @@
       "text": "USERNAME We'll make sure to get this straightened out. DM us, and we'll see you there. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -549,7 +583,7 @@
       "text": "@AppleSupport why can't I change ringer volume with the buttons? Whose dumb idea was it to change that and how do they still have a job?",
       "authored": false,
       "intents": [
-        "faulty_volume_buttons"
+        "Question"
       ]
     },
     {
@@ -557,8 +591,8 @@
       "text": "USERNAME Let us look into that. What device and OS version are you using?",
       "authored": true,
       "intents": [
-        "utter_version",
-        "utter_model"
+        "Question",
+        "Check Version/Details"
       ]
     }
   ],
@@ -568,10 +602,7 @@
       "text": "USERNAME if my words even mean a thing to you; I am an iPhone 7 owner and have updated to your latest software and now am having the most dropped calls in history and glitch's such as apps randomly opening and more ... #iHelp",
       "authored": false,
       "intents": [
-        "dropped_calls",
-        "model",
-        "update",
-        "help"
+        "Provide Information"
       ]
     },
     {
@@ -579,8 +610,9 @@
       "text": "USERNAME  We want to help.  Send us a DM letting us know if you are updated to iOS 11.1 URL",
       "authored": true,
       "intents": [
-        "utter_dm",
-        "utter_version"
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
       ]
     }
   ],
@@ -590,7 +622,8 @@
       "text": "@AppleSupport epl bana yardmc olur musun telefon internet konusunda ok yakyo napcaz ?",
       "authored": false,
       "intents": [
-        "turkish"
+        "Question",
+        "Direct to DM"
       ]
     },
     {
@@ -598,7 +631,7 @@
       "text": "USERNAME We offer support via Twitter in English. Contact us for help in your preferred language here: URL",
       "authored": true,
       "intents": [
-        "utter_english"
+        "URL Share"
       ]
     }
   ],
@@ -608,8 +641,7 @@
       "text": "why won't my apps fuccin download or update @AppleSupport",
       "authored": false,
       "intents": [
-        "app_store",
-        "help"
+        "Question"
       ]
     },
     {
@@ -617,8 +649,8 @@
       "text": "USERNAME Apps are important and we want you to get back to enjoying them. Which model do you have? Is iOS 11.1 installed on it?",
       "authored": true,
       "intents": [
-        "utter_model",
-        "utter_version"
+        "Question",
+        "Check Version/Details"
       ]
     },
     {
@@ -626,8 +658,7 @@
       "text": "@AppleSupport No I had 11.0.3 but now it says 11.1 update so ima go ahead and do that",
       "authored": false,
       "intents": [
-        "update",
-        "version"
+        "Provide Information"
       ]
     },
     {
@@ -635,7 +666,7 @@
       "text": "USERNAME Please keep us posted afterwards.",
       "authored": true,
       "intents": [
-        "utter_feedback"
+        "Provide Information"
       ]
     },
     {
@@ -643,7 +674,7 @@
       "text": "@AppleSupport Worked ",
       "authored": false,
       "intents": [
-        "success"
+        "Provide Information"
       ]
     },
     {
@@ -651,7 +682,7 @@
       "text": "USERNAME Glad to hear and just reach out again if you need help. Have a good one!",
       "authored": true,
       "intents": [
-        "utter_pleasure"
+        "Acknowledgement"
       ]
     }
   ],
@@ -661,8 +692,8 @@
       "text": "@AppleSupport $100 billion says that solves my problem? I'm on 11.0.3 currently. Hold please.",
       "authored": false,
       "intents": [
-        "await",
-        "update"
+        "Question",
+        "Report Problem"
       ]
     },
     {
@@ -670,7 +701,7 @@
       "text": "USERNAME Let us know and we'll continue from there. URL",
       "authored": true,
       "intents": [
-        "utter_await"
+        "URL Share"
       ]
     }
   ],
@@ -680,9 +711,7 @@
       "text": "@AppleSupport why is my battery life short? I updated to 11.1, my battery is poor. Wife didn't she likes her battery life",
       "authored": false,
       "intents": [
-        "version",
-        "update",
-        "battery"
+        "Question"
       ]
     },
     {
@@ -690,8 +719,8 @@
       "text": "USERNAME Let's work together on this situation. To clarify, did this start after updating to iOS 11.1? Also, which device are you using?",
       "authored": true,
       "intents": [
-        "utter_post_update",
-        "utter_model"
+        "Question",
+        "Check Version/Details"
       ]
     },
     {
@@ -699,8 +728,7 @@
       "text": "@AppleSupport Yes, after the update. I Phone 7",
       "authored": false,
       "intents": [
-        "affirm",
-        "model"
+        "Provide Information"
       ]
     },
     {
@@ -708,8 +736,9 @@
       "text": "USERNAME Got it. Does this happen while using any particular App or feature? Let us know via a DM. We'll keep moving forward from there. URL",
       "authored": true,
       "intents": [
-        "utter_more_info",
-        "utter_dm"
+        "Question",
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -719,9 +748,7 @@
       "text": "@AppleSupport watchOs4 made my watch pointless Browsing music on my phone via the watch was 80% reason for buying it now it's useless.",
       "authored": false,
       "intents": [
-        "watch_os_update",
-        "music_control",
-        "help"
+        "Provide Information"
       ]
     },
     {
@@ -729,8 +756,7 @@
       "text": "USERNAME You should still be able to control Music on your iPhone from the watch. Check out the user guide here: URL",
       "authored": true,
       "intents": [
-        "utter_feature_still_there",
-        "utter_guide"
+        "URL Share"
       ]
     },
     {
@@ -738,8 +764,7 @@
       "text": "@AppleSupport But this does not show the music stored on my phone like it did in os3. I do not want to store music on my phone.",
       "authored": false,
       "intents": [
-        "music_stored",
-        "help"
+        "Question"
       ]
     },
     {
@@ -747,7 +772,9 @@
       "text": "USERNAME We certainly want to take a closer look into this issue. Select the following link to join us in a DM and we'll go from there. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Report Problem",
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -757,8 +784,7 @@
       "text": "Question- USERNAME USERNAME my iPhone6 dies very quick (have to charge it 3 times a day) my iPhone5 battery was faulty. Could this be the same?",
       "authored": false,
       "intents": [
-        "model",
-        "battery"
+        "Question"
       ]
     },
     {
@@ -766,9 +792,9 @@
       "text": "USERNAME We know how important your battery is & we'll be happy to help. Which iOS version are you using? Also, when did this issue begin?",
       "authored": true,
       "intents": [
-        "utter_battery",
-        "utter_version",
-        "utter_when"
+        "Question",
+        "Report Problem",
+        "Check Version/Details"
       ]
     },
     {
@@ -776,8 +802,7 @@
       "text": "@AppleSupport iOS 11.1 it's been getting worse for a few months now",
       "authored": false,
       "intents": [
-        "noticable_decline",
-        "version"
+        "Check Version/Details"
       ]
     },
     {
@@ -785,7 +810,9 @@
       "text": "USERNAME Please meet with us in DM. We'd like to gather some additional details from you. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
       ]
     }
   ],
@@ -795,7 +822,7 @@
       "text": "And why is my music NEVER in my control center?! @AppleSupport",
       "authored": false,
       "intents": [
-        "music_control"
+        "Question"
       ]
     },
     {
@@ -803,8 +830,9 @@
       "text": "USERNAME We're here to help out! Which device is this on and which version of iOS is currently installed?",
       "authored": true,
       "intents": [
-        "utter_model",
-        "utter_version"
+        "Question",
+        "Check Version/Details",
+        "Acknowledgement"
       ]
     },
     {
@@ -812,8 +840,7 @@
       "text": "@AppleSupport iPhone 7+, iOS 11.1",
       "authored": false,
       "intents": [
-        "version",
-        "model"
+        "Check Version/Details"
       ]
     },
     {
@@ -821,8 +848,8 @@
       "text": "USERNAME Thank you very much! Send us a DM to let us know if your speaker doesn't work on calls, or if other apps are affected as well. URL",
       "authored": true,
       "intents": [
-        "utter_more_info",
-        "utter_dm"
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -832,9 +859,7 @@
       "text": "USERNAME Just updated iOS on iPhone7, now iCloud backup greyed out, cannot be turned on, says Last Backup Never",
       "authored": false,
       "intents": [
-        "model",
-        "update",
-        "icloud"
+        "Check Version/Details"
       ]
     },
     {
@@ -842,8 +867,8 @@
       "text": "USERNAME Check out this link: URL Send us a DM if it doesn't help. URL",
       "authored": true,
       "intents": [
-        "utter_guide",
-        "utter_dm"
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -853,8 +878,8 @@
       "text": "@AppleSupport ...cost for sending in for diagnosing a problem if it's out of warranty?",
       "authored": false,
       "intents": [
-        "quote_request",
-        "out_of_warranty"
+        "Question",
+        "Report Problem"
       ]
     },
     {
@@ -862,7 +887,25 @@
       "text": "USERNAME We can help. Let's start with the following steps to see if we can save you a trip in for service: URL",
       "authored": true,
       "intents": [
-        "utter_guide"
+        "Troubleshooting",
+        "URL Share"
+      ]
+    },
+    {
+      "id": 2637,
+      "text": "@AppleSupport Hi, I plugged an adapter straight into the transformer and it still didn't charger. The charger LED does not light up either.",
+      "authored": false,
+      "intents": [
+        "Provide Information"
+      ]
+    },
+    {
+      "id": 2639,
+      "text": "USERNAME We certainly want to take a closer look into this. Select the following link to join us in a DM and we'll go from there. URL",
+      "authored": true,
+      "intents": [
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -871,13 +914,20 @@
       "id": 2642,
       "text": "@AppleSupport still no reliable Bluetooth on my iPhone 8+.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 2641,
       "text": "USERNAME Thanks for reaching out. DM which Bluetooth device you are trying to connect to so we can help. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Troubleshooting",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -885,25 +935,37 @@
       "id": 2645,
       "text": "USERNAME when will the bug in the calendar app be fixed? I upgraded to iOS 11.1 and it still crashes when iOS 11.03",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 2643,
       "text": "USERNAME We'd like to help. What is going on with the app?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Acknowledgement"
+      ]
     },
     {
       "id": 2644,
       "text": "@AppleSupport When you roll the month, it does not appear and hangs",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 2646,
       "text": "USERNAME We'd like to take a closer look at this. DM us and we'll go from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -911,13 +973,18 @@
       "id": 2648,
       "text": "@AppleSupport do you have any apps for epilepsy so I can detect my seizures thanks in advance",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Acknowledgement"
+      ]
     },
     {
       "id": 2647,
       "text": "USERNAME Hey, we can provide some guidance. Let's meet in DM and we'll go from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -925,13 +992,19 @@
       "id": 2650,
       "text": "USERNAME really needs to fix this update. My phone has never been slower, for real.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 2649,
       "text": "USERNAME We're here to help with any issues you may having with performance. Let us know the exact iOS version to get started.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Report Problem",
+        "Check Version/Details",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -939,31 +1012,43 @@
       "id": 2655,
       "text": "USERNAME We'll be happy to look into this with you. To clarify, which iPhone model do you have and what's the exact iOS version?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 2654,
       "text": "@AppleSupport newest version of iOS and iPhone 7",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Check Version/Details"
+      ]
     },
     {
       "id": 2653,
       "text": "USERNAME Since we just released iOS 11.1 today, can you clarify which exact version you have installed?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 2652,
       "text": "@AppleSupport 11.0.3",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 2651,
       "text": "USERNAME Got it. We'd recommend backing up and updating your device to 11.1 and test things out further. Keep us posted on the results.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     }
   ],
   [
@@ -971,7 +1056,10 @@
       "id": 2658,
       "text": "USERNAME We want to help with this. Let's start troubleshooting by trying the steps here: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Troubleshooting",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -979,7 +1067,11 @@
       "id": 2661,
       "text": "USERNAME We'd be glad to see what we can do for you. Let's meet up in DM first. Thanks! URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -987,19 +1079,26 @@
       "id": 2664,
       "text": "USERNAME We'd like to look into this with you. Does the song appear to be greyed out?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Acknowledgement"
+      ]
     },
     {
       "id": 2665,
       "text": "@AppleSupport Yes",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 2667,
       "text": "USERNAME Thank you for reaching out. We've received your DM and will continue working with you there.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM"
+      ]
     }
   ],
   [
@@ -1007,13 +1106,21 @@
       "id": 2678,
       "text": "@AppleSupport Any idea why icons show up like this? I did force reset to no avail. After initial notification display, they show up. URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Troubleshooting",
+        "URL Share"
+      ]
     },
     {
       "id": 2677,
       "text": "USERNAME We're here for you. DM us, and we'll look into this together. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1021,25 +1128,33 @@
       "id": 2682,
       "text": "@AppleSupport ios 11.0.3 on 6s. Cannot adjust alarm volume so waking up all in my house and neighbours despite ringer being set to minimum!",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Check Version/Details"
+      ]
     },
     {
       "id": 2681,
       "text": "USERNAME We'd love to help with your alarm volume. Is the option to \"Change with Buttons\" disabled under Settings > Sounds?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 2680,
       "text": "@AppleSupport It's sorted. Thanks. iOS update needed a change and hard reboot",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Check Version/Details"
+      ]
     },
     {
       "id": 2679,
       "text": "USERNAME We're glad to hear that's sorted out for you. Have a great day.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     }
   ],
   [
@@ -1047,13 +1162,18 @@
       "id": 2684,
       "text": "@AppleSupport live photo keeps turning on in the camera even when it's set to stay off. Please fix in next update.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 2683,
       "text": "USERNAME Hey, we can work together to figure out a solution. Send us a DM and we'll continue from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1061,13 +1181,20 @@
       "id": 3761,
       "text": "Listen I'm having issues with my phone so like can you @ me so we can talk @AppleSupport",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Report Problem"
+      ]
     },
     {
       "id": 3760,
       "text": "USERNAME We're here to help. Send us a DM with the issue and we'll follow up from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Report Problem",
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1075,25 +1202,36 @@
       "id": 3764,
       "text": "not only does my phone keep freezing but when i screenshot things it turns out white... really not liking this iphone 8 plus @AppleSupport",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 3762,
       "text": "USERNAME Let's look at this together. Are you updated to iOS 11.1?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 3763,
       "text": "@AppleSupport 11.1?? when did that come out lol, i talked to you guys last night and you asked if i was updated to 11.0.3 which i am lol",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 3765,
       "text": "USERNAME It was released earlier today. Let's use these steps to update iOS:  \n URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Troubleshooting",
+        "Check Version/Details",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1101,13 +1239,17 @@
       "id": 3767,
       "text": "@AppleSupport I'm no expert in battery life  but 40% doesn't go to 7% in 5minutes",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 3766,
       "text": "USERNAME We understand your concerns, and want to help. Which device is this happening on?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     }
   ],
   [
@@ -1115,25 +1257,34 @@
       "id": 3770,
       "text": "@AppleSupport this is my top bar every time I open messages on my SE after updating to iOS 11.1 URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Check Version/Details",
+        "URL Share"
+      ]
     },
     {
       "id": 3768,
       "text": "USERNAME Thank you for reaching out to us. Have you tried to restart the device? Let us know to get started.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 3769,
       "text": "@AppleSupport That fixed it thanks",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Acknowledgement"
+      ]
     },
     {
       "id": 3771,
       "text": "USERNAME That's great! Enjoy the rest of your day.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     }
   ],
   [
@@ -1141,7 +1292,12 @@
       "id": 3772,
       "text": "USERNAME We'd like to take a look into that with you. Would you please join us in DM to get started? URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1149,25 +1305,36 @@
       "id": 3777,
       "text": "@AppleSupport I've also forced the app to close from the background and reopened, no dice ",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 3775,
       "text": "USERNAME Let's team up on this. How long has this been happening? What version number of iOS are you running? Which iPhone do you have?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 3776,
       "text": "@AppleSupport still happening, including on iOS 11.2 beta now. any ideas?",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 3778,
       "text": "USERNAME Thanks for the update. Go ahead and send us a DM and we'll take it from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1175,25 +1342,36 @@
       "id": 4871,
       "text": "Really considering getting a new kind of phone since my iPhone dies with 90% while using my camera  USERNAME @AppleSupport USERNAME",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 4869,
       "text": "USERNAME We want to help! What model of iOS device are you using? Do you have the most recent version of iOS 11.1 downloaded?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 4870,
       "text": "@AppleSupport iPhone 6 and yes it's got the latest software update",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 4872,
       "text": "USERNAME Thanks for letting us know. We'd like to take a further look into this. Please send us a DM, and we'll continue there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1201,25 +1379,37 @@
       "id": 4879,
       "text": "@AppleSupport I can't download songs. Progress icon keeps spinning. On both data + WiFi. Stream works though. Can't add songs to playlists. URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "URL Share"
+      ]
     },
     {
       "id": 4878,
       "text": "USERNAME We want to help. Does restarting help at all? DM us which iOS version you're on and we'll continue support there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
+      ]
     },
     {
       "id": 4877,
       "text": "@AppleSupport Restarting does resolve the issue. Thanks.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Report Problem"
+      ]
     },
     {
       "id": 4876,
       "text": "USERNAME We're glad to hear that resolved the issue. Don't hesitate to reach out to us if you have any questions. Take care.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Report Problem",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1227,13 +1417,18 @@
       "id": 4884,
       "text": "@AppleSupport It",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 4886,
       "text": "USERNAME We'd be happy to look into this with you further. DM us using the link below and we'll go from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1241,13 +1436,19 @@
       "id": 4889,
       "text": "@AppleSupport And the new ones tauntingly pretend they are saved- it's just when I click on them or try to send them that the grey screen shows",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Troubleshooting"
+      ]
     },
     {
       "id": 4891,
       "text": "USERNAME We appreciate those details. For more help with Photos, please reach out to our Photos experts here: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1255,13 +1456,20 @@
       "id": 4893,
       "text": "This I shit annoying yo USERNAME fix this shit",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 4892,
       "text": "USERNAME We're here to help. Send us a DM with the iOS version number you're on. We'll follow up there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1269,13 +1477,20 @@
       "id": 4897,
       "text": "@AppleSupport AFTER I updated my phone.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 4898,
       "text": "USERNAME Does that continue after restarting your iPhone? Do you have any other iOS devices or a Mac computer? Let us know in DM. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1283,19 +1498,26 @@
       "id": 4899,
       "text": "USERNAME We want to make sure you have a working battery. Have you had a chance to update to the latest 11.1?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 4900,
       "text": "@AppleSupport USERNAME I have and my battery life has become even worse",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Report Problem"
+      ]
     },
     {
       "id": 4902,
       "text": "USERNAME Let's look into this further in DM. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1303,25 +1525,38 @@
       "id": 4906,
       "text": "@AppleSupport The Overlapping url over TIME on Free WiFi hotspots' remains. v11.0.3. Not a WiFi problem; two different hotspots shown. URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Report Problem",
+        "URL Share"
+      ]
     },
     {
       "id": 4904,
       "text": "USERNAME We'd like to have you backup and update your iPhone to iOS 11.1 and let us know if that helps: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Check Version/Details",
+        "URL Share",
+        "Acknowledgement"
+      ]
     },
     {
       "id": 4905,
       "text": "@AppleSupport I've updated to iOS 11.1 just now. I shall check out these WiFi hotspots tomorrow and later in the week.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Check Version/Details"
+      ]
     },
     {
       "id": 4907,
       "text": "USERNAME Sounds good. Let us know the results in DM and we'll continue working with you there. Thanks again. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1329,13 +1564,17 @@
       "id": 4909,
       "text": "` ;\n@AppleSupport USERNAME   URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "URL Share"
+      ]
     },
     {
       "id": 4908,
       "text": "USERNAME We offer support via Twitter in English. Contact us for help in your preferred language here: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1343,13 +1582,20 @@
       "id": 4915,
       "text": "Don't complain a lot about USERNAME but when battery iphone goes down 50% after using your phone for 30 minutes .....\nProblems since update 11",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Report Problem"
+      ]
     },
     {
       "id": 4914,
       "text": "USERNAME We'd like to help. Let's take this to DM and we'll explore ways to provide you assistance. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1357,13 +1603,19 @@
       "id": 4917,
       "text": ".@AppleSupport why my iPhone keep dying at 30% quit playing games I'm not getting no new damn phone or iPhone x",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 4916,
       "text": "USERNAME We'd like to help. What iOS version are you on?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1371,13 +1623,17 @@
       "id": 5808,
       "text": "Y'all need to fix this now USERNAME",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 5807,
       "text": "USERNAME Thank you for reaching out. We've received your DM and will continue working with you there.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM"
+      ]
     }
   ],
   [
@@ -1385,25 +1641,33 @@
       "id": 5812,
       "text": "@AppleSupport just updated my 7 plus to 11.1 but I can't see the new emojis on my watch. Pls help.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 5811,
       "text": "USERNAME Got it. Have you updated your Apple Watch to 4.1 yet?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 5810,
       "text": "@AppleSupport No",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 5809,
       "text": "USERNAME Got it. We recommend updating your Watch OS, then testing to see if the issue persists. If the problem continues, reach back out.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Report Problem"
+      ]
     }
   ],
   [
@@ -1411,25 +1675,38 @@
       "id": 5816,
       "text": "I < wtf is going on @AppleSupport",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 5815,
       "text": "USERNAME We'd be happy to look into this with you more in detail.  Please reach out to us via DM and we'll get started. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     },
     {
       "id": 5814,
       "text": "@AppleSupport ok cool",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 5813,
       "text": "USERNAME Does this issue happen with all applications or only some?  Let us know in DM. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Report Problem",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1437,13 +1714,17 @@
       "id": 5821,
       "text": "Dear @AppleSupport this new update sucks ,I have too many problems with my phone now ! Blurry screen , black screen , frozen phone !",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Report Problem"
+      ]
     },
     {
       "id": 5820,
       "text": "USERNAME Getting the expected performance from your iPhone is very important to us. Let us know the exact iOS version to get started.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Check Version/Details"
+      ]
     }
   ],
   [
@@ -1451,13 +1732,17 @@
       "id": 5823,
       "text": "USERNAME creates amazing technology..... but talk to text still messes up 90% of what I will it to type..... #fixyourcrap",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 5822,
       "text": "USERNAME Let's work together on this. How long has this been happening? Do you experience similar behavior with Siri?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     }
   ],
   [
@@ -1465,7 +1750,12 @@
       "id": 5824,
       "text": "USERNAME We'll be happy to take a look into it with you. Please send us a DM with what version of iOS you have. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1473,25 +1763,37 @@
       "id": 5833,
       "text": "sa fait 1h j'ai ios11.1 et mon tel redemarre seul, explication @AppleSupport ?????",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 5832,
       "text": "USERNAME We offer support via Twitter in English. Contact us for help in your preferred language here: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "URL Share"
+      ]
     },
     {
       "id": 5831,
       "text": "@AppleSupport why does my iphone 6 is redmarrer alone !!!!!",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM"
+      ]
     },
     {
       "id": 5830,
       "text": "USERNAME Thanks for getting back to us. We apologize but aren't understanding the issue at hand. Please DM us. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Report Problem",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1499,13 +1801,20 @@
       "id": 5835,
       "text": "You dropped an update and I still see boxed question marks. Fix this shit @AppleSupport USERNAME.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 5834,
       "text": "USERNAME We're here to help. Which version of iOS is installed on your device? You'll see this in Settings > General > About.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Provide Information",
+        "Check Version/Details",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1513,25 +1822,37 @@
       "id": 5837,
       "text": "@AppleSupport Yes. Sorry. I just watched a video about 11.2 beta. 11.1 When I type the letter Eye I happens URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "URL Share"
+      ]
     },
     {
       "id": 5840,
       "text": "USERNAME Have you tried resetting the keyboard dictionary yet? If not, go to Settings > General > Reset > Reset Keyboard Library",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Troubleshooting"
+      ]
     },
     {
       "id": 5841,
       "text": "@AppleSupport Tried It and It still doesn't work",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 5842,
       "text": "USERNAME Here's what you can do to work around the issue until it's fixed in a future software update: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Report Problem",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1539,25 +1860,35 @@
       "id": 5845,
       "text": "@AppleSupport Updated iPad Pro to 11.1.  Worked on draft email. None of changes saved. Started new email. Saved but disappeared. Help please",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 5843,
       "text": "USERNAME We'll help in any way we can. Was this on an URL email account?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "URL Share"
+      ]
     },
     {
       "id": 5844,
       "text": "@AppleSupport No, virginmedia. Tried twice with completely new mail. One didn't save, 2nd did though. Very odd.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 5846,
       "text": "USERNAME Some accounts may create separate folders for your Drafts. If you're still having trouble, please DM us here: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1565,19 +1896,29 @@
       "id": 5847,
       "text": "USERNAME We are here to help. So we can best isolate the cause, could you verify your exact iOS version? URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details",
+        "URL Share"
+      ]
     },
     {
       "id": 5848,
       "text": "@AppleSupport 11.0.3",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 5850,
       "text": "USERNAME Got it. From here, let's update to iOS version 11.1, then test to see if the issue persists: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Report Problem",
+        "Check Version/Details",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1585,13 +1926,18 @@
       "id": 5853,
       "text": "USERNAME why is my it  autocorrecting to I.T?? So annoying! Can't change in settings either...@AppleSupport",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 5852,
       "text": "USERNAME We'd love to help. Let's work together in DM. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1599,13 +1945,20 @@
       "id": 6483,
       "text": "Hello USERNAME @AppleSupport what's happening to my screen URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "URL Share"
+      ]
     },
     {
       "id": 6482,
       "text": "USERNAME We'd love to take a look into this concern. Is the screen stuck this way have you restarted it? Send us a DM. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1613,13 +1966,19 @@
       "id": 6554,
       "text": "@AppleSupport how long does it take usually for account recovery to get back to you? It's been about a week now.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 6553,
       "text": "USERNAME Having access to your Apple ID is important. Did you receive an email with a confirmation of your request? DM us here: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1627,13 +1986,19 @@
       "id": 6608,
       "text": "@AppleSupport the fact that my laptop that I haven't even had for two years keeps shutting off without warning at 15% is kind of ridiculous.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 6607,
       "text": "USERNAME Let's see what we can find for you today. Let's meet up in DM to gather some specifics and we'll proceed from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1641,13 +2006,20 @@
       "id": 6657,
       "text": "@AppleSupport My wife made the mistake of updating to 11. How can we revert back? Her password keeper app is now dead. She can't access her passwords.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 6656,
       "text": "USERNAME You won't be able to revert the system to pre-iOS 11 but we can look into the issues. DM us and we'll get started. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Report Problem",
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1655,25 +2027,39 @@
       "id": 6919,
       "text": "@AppleSupport I installed the iOS 10.0 , 10.0.1 and 10.0.2 and makes my iPhone 6 very slow and doesn't work properly can you help me?",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 6918,
       "text": "USERNAME We can help!  We assume you mean iOS 11, right?  Can you tell us what types of performance issues you're experiencing?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Report Problem",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 6917,
       "text": "@AppleSupport Yes, sorry i mean iOS 11, when I texting my keyboard it's very slow and my battery it consumes very fast.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 6916,
       "text": "USERNAME Are you currently using Low Power Mode? If so, disable that from Settings > Battery and restart. Let us know in DM if it helps. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1681,13 +2067,19 @@
       "id": 6928,
       "text": "@AppleSupport my iPhone is a fully up to date so why does my phone keep freezing ???",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 6927,
       "text": "USERNAME We want to help in any way we can. Which iPhone are you using? Let us know in DM, and we'll work with you there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1695,13 +2087,19 @@
       "id": 6934,
       "text": "USERNAME after the new apple updates: the battery life is really go fast and the WiFi is always on! @AppleSupport #newappleupdates",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 6933,
       "text": "USERNAME We'd love to help. Let's work on this together in DM. Start by letting us know what kind of device you are using. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1709,13 +2107,20 @@
       "id": 8297,
       "text": "@AppleSupport Hello there i need help with the use of an administartors name and password on my imac",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Direct to DM"
+      ]
     },
     {
       "id": 8296,
       "text": "USERNAME Hi! We're happy to help. Join us in DM with the macOS version installed on your iMac and more details about what's going on. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1723,13 +2128,20 @@
       "id": 8299,
       "text": "@AppleSupport DL the latest iOS today. Very laggy 6s. Phone is running like hammered dog shit since the DL.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Check Version/Details"
+      ]
     },
     {
       "id": 8298,
       "text": "USERNAME Are you seeing issues across all apps or are you noticing lag when performing specific tasks? Let us know in DM. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Report Problem",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1737,13 +2149,20 @@
       "id": 8304,
       "text": "USERNAME USERNAME  can your team let me know why my new iPhone 6 always has hanging problem I do not know what the problem is by I know I feel I am cheated by apple for phone  do I ?",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Report Problem"
+      ]
     },
     {
       "id": 8303,
       "text": "USERNAME We'd be concerned with an unresponsive device too. Let us know your iOS version in DM and we'll help: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1751,25 +2170,34 @@
       "id": 8310,
       "text": "@AppleSupport Its slowing down my mac a lot",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 8309,
       "text": "USERNAME  Is 25 GBs what you have left after the snapshots were created on the drive though? Or, were you low on space prior to snapshots?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 8308,
       "text": "@AppleSupport I don't know. I need the space though. How do I get rid of some snapshots",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 8307,
       "text": "USERNAME Finder and Get Info windows don't include snapshots in their calculations so that's not the root cause. Let's meet within DM: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1777,25 +2205,35 @@
       "id": 8316,
       "text": "@AppleSupport  URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "URL Share"
+      ]
     },
     {
       "id": 8314,
       "text": "USERNAME Here's what you can do to work around the issue until it's fixed in a future software update: URL URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Report Problem",
+        "URL Share"
+      ]
     },
     {
       "id": 8315,
       "text": "@AppleSupport Thank you",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Acknowledgement"
+      ]
     },
     {
       "id": 8317,
       "text": "USERNAME You're very welcome! Please feel free to reach out to us again if you need any more help. Have a great day!",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1803,7 +2241,11 @@
       "id": 8330,
       "text": "USERNAME Are you accidentally recording audio message or is this happening on its own? Let us know in a DM, we'll communicate there: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1811,13 +2253,19 @@
       "id": 8340,
       "text": "@AppleSupport only 8 attempts to open the twitter app and complain about the iOS 11 messing up my iPhone 7 - this is slowing down my life :(",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Check Version/Details"
+      ]
     },
     {
       "id": 8339,
       "text": "USERNAME We'd like to look into this with you. Please DM us details and we'll be glad to work with you towards a resolution. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1825,13 +2273,17 @@
       "id": 8435,
       "text": "@AppleSupport I need an actual human to help me",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 8438,
       "text": "USERNAME Understood. For further help with your Apple ID, connect with one of our Apple ID Advisors here: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1839,13 +2291,18 @@
       "id": 8542,
       "text": "USERNAME needs to figure it's shit out. My phone won't stop freezing & closing apps ",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 8541,
       "text": "USERNAME Let us help. Does this happen while using any specific app? Also, which version of iOS are you currently running?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     }
   ],
   [
@@ -1853,25 +2310,35 @@
       "id": 8545,
       "text": "what the fuck USERNAME? URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "URL Share"
+      ]
     },
     {
       "id": 8543,
       "text": "USERNAME We're here for you. Let's work together to locate your photos. Did you just recently restore your device, by any chance?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Acknowledgement"
+      ]
     },
     {
       "id": 8544,
       "text": "@AppleSupport no, my photos aren't gone. why are there four (five actually, one isn't pictured) albums in my photos all labeled twitter?",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 8546,
       "text": "USERNAME Got it. Please continue with us by reaching out to our Photos app experts: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1879,13 +2346,22 @@
       "id": 8548,
       "text": "@AppleSupport lil help? URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "URL Share"
+      ]
     },
     {
       "id": 8547,
       "text": "USERNAME We'd love to help. DM us which iOS device you are experiencing this issue on to get started. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Report Problem",
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1893,7 +2369,12 @@
       "id": 8552,
       "text": "USERNAME This link is a great place to start: URL If you still have issues after those steps, DM us. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Report Problem",
+        "Troubleshooting",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1901,7 +2382,10 @@
       "id": 8569,
       "text": "USERNAME Thanks for reaching out. For help with AppleTV reach out to our experts here:  URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -1909,25 +2393,34 @@
       "id": 8574,
       "text": "@AppleSupport this is the second Fishing email that I have gotten in 2 days URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "URL Share"
+      ]
     },
     {
       "id": 8572,
       "text": "USERNAME We are here to help. Please refer to the following article for steps to report these emails: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Troubleshooting",
+        "URL Share"
+      ]
     },
     {
       "id": 8573,
       "text": "@AppleSupport Thank you.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Acknowledgement"
+      ]
     },
     {
       "id": 8575,
       "text": "USERNAME You are most welcome. If there is anything we can do to assist you in the future, please don't hesitate to reach back out.",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     }
   ],
   [
@@ -1935,13 +2428,18 @@
       "id": 8577,
       "text": "@AppleSupport since upgrade to High Sierra I see this screen each time my iMac reboots thus defeating automatic login I need. Help. URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "URL Share"
+      ]
     },
     {
       "id": 8576,
       "text": "USERNAME Thanks for reaching out to let us know about this. So we can look into this with you, please DM us here: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1949,13 +2447,19 @@
       "id": 8579,
       "text": "@AppleSupport I bought 2 iPhones X on Friday, but I don't see any charge on my credit card. Do I should worry or it's normal?",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 8578,
       "text": "USERNAME Thanks for reaching out to us. Please send us a DM with your country, and we'll look into this. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Troubleshooting",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1963,31 +2467,46 @@
       "id": 9150,
       "text": "USERNAME Let's take a look at this issue together. Which iOS version is your device currently running?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Report Problem",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 9151,
       "text": "@AppleSupport Well, I was running 11.0.3, and now 11.1. Issue persists.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Report Problem"
+      ]
     },
     {
       "id": 9153,
       "text": "USERNAME Thanks. Please DM us and we'll continue this conversation there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     },
     {
       "id": 9154,
       "text": "@AppleSupport USERNAME I'm having the same issue!!! Just started today!",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Report Problem"
+      ]
     },
     {
       "id": 9155,
       "text": "USERNAME Lets help get this sorted. Please DM us the version of iOS you're using and we can go from there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -1995,25 +2514,35 @@
       "id": 9160,
       "text": "I got my phone yesterday and it's already not charging thanks USERNAME ",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Acknowledgement"
+      ]
     },
     {
       "id": 9159,
       "text": "USERNAME We want to make sure you can charge and enjoy your new phone. Is it not showing as connected to power when plugged in?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 9158,
       "text": "@AppleSupport It's showing it's connected and the battery is decreasing.",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 9157,
       "text": "USERNAME We are here for you. Let's take a look at this further for you. Reach out to us in DM. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -2021,7 +2550,11 @@
       "id": 9161,
       "text": "USERNAME Let's see how we can help over Twitter. Is iOS 11.1 the version installed and have you tried any steps? Which app is it?",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Troubleshooting",
+        "Check Version/Details"
+      ]
     }
   ],
   [
@@ -2029,13 +2562,19 @@
       "id": 9165,
       "text": "Can I undo this iOS update? This is horrendous and dealing with phone frustration during 75% of my 150 mobile uses each day is not acceptable USERNAME",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "Check Version/Details"
+      ]
     },
     {
       "id": 9164,
       "text": "USERNAME We'd be happy to help. Send us a DM with a few details. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -2043,7 +2582,11 @@
       "id": 9166,
       "text": "USERNAME We want to help you. DM us, and we can look into what's going on with Wi-Fi calling on your iPhone. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -2051,25 +2594,36 @@
       "id": 9170,
       "text": "11.1Twitter20 @AppleSupport",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Provide Information"
+      ]
     },
     {
       "id": 9168,
       "text": "USERNAME We offer support via Twitter in English. Contact us for help in your preferred language here: URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "URL Share"
+      ]
     },
     {
       "id": 9169,
       "text": "@AppleSupport iOS11.1 consumes battery pretty fast....",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Check Version/Details"
+      ]
     },
     {
       "id": 9171,
       "text": "USERNAME Let's see how you're using your battery so we can provide the best solution. To start, DM us with the country where you're located. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Question",
+        "Troubleshooting",
+        "Direct to DM",
+        "URL Share"
+      ]
     }
   ],
   [
@@ -2077,13 +2631,20 @@
       "id": 9176,
       "text": "@AppleSupport the new update is making my phone so funky. Check out the emoji and the letter I. Is there a fix? URL",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question",
+        "URL Share"
+      ]
     },
     {
       "id": 9175,
       "text": "USERNAME We'd like to help. Send us a DM and we can start there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ],
   [
@@ -2091,13 +2652,19 @@
       "id": 9178,
       "text": "@AppleSupport what's up with typing the letter I ... it wants to be an A and a box with a question mark",
       "authored": false,
-      "intents": []
+      "intents": [
+        "Question"
+      ]
     },
     {
       "id": 9177,
       "text": "USERNAME We'd like to help. We received your DM and will continue there. URL",
       "authored": true,
-      "intents": []
+      "intents": [
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
+      ]
     }
   ]
 ]

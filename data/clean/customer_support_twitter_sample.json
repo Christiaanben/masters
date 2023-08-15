@@ -5,7 +5,7 @@
       "text": "USERNAME @AppleSupport Me too am suffering , hope the can find a solution",
       "authored": false,
       "intents": [
-        "help"
+        "Provide Information"
       ]
     },
     {
@@ -13,7 +13,11 @@
       "text": "USERNAME We can help. Which version of iOS are you on? You can find that in Settings > General > About. Reply in DM. URL",
       "authored": true,
       "intents": [
-        "utter_version"
+        "Question",
+        "Provide Information",
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share"
       ]
     }
   ],
@@ -23,8 +27,7 @@
       "text": "I just updated my phone and suddenly everything takes ages to load wtf USERNAME this update sux I hate it fix it bye",
       "authored": false,
       "intents": [
-        "update",
-        "help"
+        "Provide Information"
       ]
     },
     {
@@ -32,7 +35,8 @@
       "text": "USERNAME Thanks for reaching out to us. We are always happy to help. Send us a DM so we can look into this together. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -42,8 +46,7 @@
       "text": "@AppleSupport after the 11.0.2 my phone just sucks most of the apps are broken, wifi disconnects frequently #apple #ios1102 #painfulupdate",
       "authored": false,
       "intents": [
-        "update",
-        "help"
+        "Check Version/Details"
       ]
     },
     {
@@ -51,8 +54,9 @@
       "text": "USERNAME We'd love to help! Please DM us and let us know any steps you've tried since experiencing these behaviors. URL",
       "authored": true,
       "intents": [
-        "utter_tried",
-        "utter_dm"
+        "Troubleshooting",
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -62,7 +66,7 @@
       "text": "Okay USERNAME I used my fucking phone for 2 minutes and it drains it down 8 fucking percent",
       "authored": false,
       "intents": [
-        "battery"
+        "Provide Information"
       ]
     },
     {
@@ -70,9 +74,10 @@
       "text": "USERNAME Battery life is important, and we're here for you. DM us the iOS version your iPhone is running. We'll go from there. URL",
       "authored": true,
       "intents": [
-        "utter_dm",
-        "utter_version",
-        "utter_battery"
+        "Direct to DM",
+        "Check Version/Details",
+        "URL Share",
+        "Acknowledgement"
       ]
     }
   ],
@@ -82,8 +87,7 @@
       "text": "You've paralysed my phone with your update USERNAME grrrrrrrrrr",
       "authored": false,
       "intents": [
-        "help",
-        "update"
+        "Provide Information"
       ]
     },
     {
@@ -91,7 +95,8 @@
       "text": "USERNAME We'd be happy to help. Send us a DM and we can start there. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Direct to DM",
+        "URL Share"
       ]
     },
     {
@@ -99,9 +104,8 @@
       "text": "@AppleSupport Can you get my iPhone 7plus back on the old iOS please?  Battery runs out in half the time, apps now frequently crash.",
       "authored": false,
       "intents": [
-        "battery",
-        "update",
-        "help"
+        "Question",
+        "Check Version/Details"
       ]
     },
     {
@@ -109,7 +113,8 @@
       "text": "USERNAME Thanks for reaching out to us. We are always happy to help. Send us a DM so we can look into this together. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -119,8 +124,7 @@
       "text": "So the new USERNAME update does not let me listen to music and go on whatsapp at the same time?!?",
       "authored": false,
       "intents": [
-        "music",
-        "update"
+        "Question"
       ]
     },
     {
@@ -128,19 +132,21 @@
       "text": "USERNAME We'd like to help. What happens when you try to listen to Apple Music & use WhatsApp? Does the music pause? Let us know in DM. URL",
       "authored": true,
       "intents": [
-        "utter_music",
-        "utter_dm"
+        "Question",
+        "Troubleshooting",
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
       ]
     }
   ],
   [
     {
       "id": 119294,
-      "text": "Took my phone off charge at 7:20am.\r\n\r\n8:03am - 60% battery remaining.\r\n\r\nUSERNAME plz I beg you, sort your battery life out",
+      "text": "Took my phone off charge at 7:20am.8:03am - 60% battery remaining.USERNAME plz I beg you, sort your battery life out",
       "authored": false,
       "intents": [
-        "help",
-        "battery"
+        "Provide Information"
       ]
     },
     {
@@ -148,7 +154,8 @@
       "text": "USERNAME Thanks for reaching out to us. We are always happy to help. Send us a DM so we can look into this together. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -158,7 +165,7 @@
       "text": "@AppleSupport I need a new code for my I-store. I haven't recd any but msg is too many sent. Help!",
       "authored": false,
       "intents": [
-        "istore_code"
+        "Provide Information"
       ]
     },
     {
@@ -166,7 +173,10 @@
       "text": "USERNAME We'd like to provide some assistance with this. Tell us more about the issue you're experiencing in DM. We'll go from there. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Report Problem",
+        "Direct to DM",
+        "URL Share",
+        "Acknowledgement"
       ]
     }
   ],
@@ -176,8 +186,7 @@
       "text": "USERNAME @AppleSupport fix this update. It's horrible",
       "authored": false,
       "intents": [
-        "update",
-        "help"
+        "Provide Information"
       ]
     },
     {
@@ -185,7 +194,10 @@
       "text": "USERNAME Are you experiencing an issue with your device? If so, DM us with what's going on. We'll see how we can help from there. URL",
       "authored": true,
       "intents": [
-        "utter_dm"
+        "Question",
+        "Report Problem",
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ],
@@ -195,8 +207,7 @@
       "text": "My apps stop working without warning and my phone freezes every five minutes! Love the new update USERNAME!!!!",
       "authored": false,
       "intents": [
-        "help",
-        "update"
+        "Provide Information"
       ]
     },
     {
@@ -204,7 +215,9 @@
       "text": "USERNAME We'd like to help if we can. When did this start happening? Which version of iOS are you running currently?",
       "authored": true,
       "intents": [
-        "utter_version"
+        "Question",
+        "Check Version/Details",
+        "Acknowledgement"
       ]
     },
     {
@@ -212,7 +225,7 @@
       "text": "@AppleSupport I have the latest version iOS. It started immediately after I updated my phone.",
       "authored": false,
       "intents": [
-        "update"
+        "Check Version/Details"
       ]
     },
     {
@@ -220,8 +233,10 @@
       "text": "USERNAME Is there a particular app that seems to cause these issues more than others? What model iPhone are you using? Join us in DM. URL",
       "authored": true,
       "intents": [
-        "utter_model",
-        "utter_dm"
+        "Question",
+        "Report Problem",
+        "Direct to DM",
+        "URL Share"
       ]
     }
   ]
