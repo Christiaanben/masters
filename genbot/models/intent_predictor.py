@@ -23,7 +23,7 @@ class IntentPredictor(pl.LightningModule):
         self.f1_score = torchmetrics.F1Score(
             task='multilabel',
             num_labels=n_labels,
-            average='macro',
+            average='micro',
         )
 
     def forward(self, inputs):
@@ -67,6 +67,8 @@ class IntentPredictor(pl.LightningModule):
             'val_f1_score': f1_score,
         },
             prog_bar=True,
+            on_epoch=True,
+            on_step=False,
         )
         return loss
 

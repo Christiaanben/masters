@@ -111,9 +111,13 @@ def main():
     predictor_testset = get_predictor_testset()
     # Setup, train, & evaluate intent predictor
     predictor = IntentPredictor(n_labels=9)
-    predictor_trainer = pl.Trainer(max_epochs=2)
-    predictor_trainer.fit(predictor, DataLoader(predictor_dataset, batch_size=2))
-    predictor_trainer.validate(predictor, DataLoader(predictor_testset, batch_size=2))
+    predictor_trainer = pl.Trainer(max_epochs=5)
+    predictor_trainer.fit(
+        predictor,
+        DataLoader(predictor_dataset, batch_size=8),
+        DataLoader(predictor_testset, batch_size=8, shuffle=False)
+    )
+    predictor_trainer.validate(predictor, DataLoader(predictor_testset, batch_size=8))
 
     # # Setup generator datasets
     # generator_dataset = get_generator_dataset()

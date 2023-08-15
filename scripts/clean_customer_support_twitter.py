@@ -11,7 +11,7 @@ from tqdm.auto import tqdm
 CORPUS_FILE = '../data/raw/customer_support_twitter_full.csv'
 OUTPUT_FILE = '../data/clean/customer_support_twitter_full.json'
 TARGET_COMPANY = 'AppleSupport'
-N_CONVERSATIONS = 100
+N_CONVERSATIONS = 1000
 UTTER = 'utter_'
 
 
